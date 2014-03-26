@@ -1,0 +1,15 @@
+# globals
+*~
+#*#
+
+# octave files
+octave-core
+core.*
+
+# large mat files which should probably move to crc-nak.
+*.mat
+
+# Mac files
+*.DS_Store
+.DS_Store
+

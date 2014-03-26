@@ -1,0 +1,215 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Plotting 3D Data - Noisy signal set</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-03-26"><meta name="DC.source" content="plott_demo2_3D_data.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Plotting 3D Data - Noisy signal set</h1><!--introduction--><p>Explores the spectral properties of a 3D matrix making use of several commands from the plotting package.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Set up signals</a></li><li><a href="#2">plot_matrix3D: Plot mean data</a></li><li><a href="#3">plot_matrix3D: Plot raw data</a></li><li><a href="#4">plot_ani_pairs: Animated plot along trials</a></li><li><a href="#5">plot_ani: Animated spectrogram plots to identify bad trials</a></li><li><a href="#6">plot_ani: Plot all powerspectra</a></li><li><a href="#7">Set up data for plotting some statistics</a></li><li><a href="#8">bar_matrix3D: Test for significant difference in three frequency bins</a></li></ul></div><h2>Set up signals<a name="1"></a></h2><pre class="codeinput">set(0, <span class="string">'DefaultFigureColor'</span>, <span class="string">'White'</span>);
+params.tapers = [3 5];
+
+<span class="comment">% Load a bunch of random signals</span>
+load <span class="string">ex_c5_100</span>
+
+
+<span class="comment">% Order data so in the form Ndata x Ntrials x Nsignals</span>
+[~,ind] = sort(sig_CLU);
+X = signals(ind,:)';
+X = reshape(X,[512,100,5]);
+X = X(:,1:5,:);            <span class="comment">% Take a subset - only a few trials</span>
+[Ndata, Ntrials, Nsignals] = size(X);
+Fs = 500;
+signames = arrayfun(@(x) [<span class="string">'Signal #'</span> num2str(x)],1:Nsignals,<span class="string">'UniformOutput'</span>,0);
+
+<span class="comment">% Add some additional noise to a few trials to make things interesting</span>
+Xnoise = 1*randn([Ndata,2,Nsignals]);
+X(:,[3 5],:) = X(:,[3 5],:) + Xnoise;
+</pre><h2>plot_matrix3D: Plot mean data<a name="2"></a></h2><pre class="codeinput">figure; hl = plot_matrix3D(X(:,:,:),<span class="string">'fs'</span>,Fs,<span class="string">'do_mean'</span>,1,<span class="string">'do_shift'</span>,2); title(<span class="string">'Averages'</span>);
+legend(hl,arrayfun(@(x) [<span class="string">'Chirp #'</span> num2str(x)],1:Nsignals,<span class="string">'UniformOutput'</span>,0))
+xlabel(<span class="string">'time (s)'</span>);
+</pre><img vspace="5" hspace="5" src="plott_demo2_3D_data_01.png" alt=""> <h2>plot_matrix3D: Plot raw data<a name="3"></a></h2><pre class="codeinput">figure; plot_matrix3D(X,<span class="string">'fs'</span>,Fs,<span class="string">'do_mean'</span>,0,<span class="string">'showErrorbars'</span>,0,<span class="string">'do_shift'</span>,4,<span class="string">'active_dim'</span>,3,<span class="string">'do_zscore'</span>,1); title(<span class="string">'Raw data'</span>);
+xlabel(<span class="string">'time (s)'</span>);
+</pre><img vspace="5" hspace="5" src="plott_demo2_3D_data_02.png" alt=""> <h2>plot_ani_pairs: Animated plot along trials<a name="4"></a></h2><p>A few signals suffer from high noise - try to spot them (hint, it's trials 3 and 5)</p><pre class="codeinput">figure;
+plot_ani_pairs(X(:,:,1),@plot_fs,X(:,:,2),@plot_fs,X(:,:,3), <span class="keyword">...</span>
+    @plot_fs,X(:,:,4),@plot_fs,<span class="string">'plotargs'</span>,{<span class="string">'fs'</span>,Fs});
+</pre><img vspace="5" hspace="5" src="plott_demo2_3D_data_03.png" alt=""> <h2>plot_ani: Animated spectrogram plots to identify bad trials<a name="5"></a></h2><pre class="codeinput">figl;   <span class="comment">% Large figure</span>
+plot_ani(X(:,:,3),<span class="string">'fs'</span>,Fs,<span class="string">'fname'</span>,{@plot_fs,@plot_spect});
+
+
+<span class="comment">% Remove the bad trials</span>
+ind = true(1,size(X,2)); ind([3,5]) = 0;
+X = X(:,ind,:);
+</pre><img vspace="5" hspace="5" src="plott_demo2_3D_data_04.png" alt=""> <h2>plot_ani: Plot all powerspectra<a name="6"></a></h2><pre class="codeinput">plot_ani(X,<span class="string">'fname'</span>,@(X) plot_psd(X,<span class="string">'fs'</span>,Fs,<span class="string">'params'</span>,params));
+<span class="comment">% figure; hl= plot_psd(X,'fs',Fs); ylabel('Power');</span>
+</pre><img vspace="5" hspace="5" src="plott_demo2_3D_data_05.png" alt=""> <h2>Set up data for plotting some statistics<a name="7"></a></h2><pre class="codeinput"><span class="comment">% Take the PSDs of this 3D matrix. Need to do some cell arrays to handle 3D matrix, unfortunately</span>
+sz = size(X);
+Xcell = mat2cell(X,[sz(1)],[sz(2)],[ones(1,sz(3))]);
+[P,f] = cellfun(@(X) psd_wrapper(X,<span class="string">'fs'</span>,Fs,<span class="string">'params'</span>,params),Xcell,<span class="string">'UniformOutput'</span>,0);
+f = f{1};
+P = cell2mat(P);
+
+<span class="comment">% Take segment of data from 1 - 4Hz.</span>
+index = find(f &gt;= 1 &amp; f &lt; 15);
+Y = P(index,:,:);
+f2 = f(index);
+</pre><h2>bar_matrix3D: Test for significant difference in three frequency bins<a name="8"></a></h2><pre class="codeinput">figl;
+subplot(1,2,1); hl1 = plot_matrix3D(f2,Y,<span class="string">'showErrorbars'</span>,0,<span class="string">'do_mean'</span>,0);
+legend(hl1{1},signames);
+Ysparse = Y(1:5:end,:,:); f_sparse = f2(1:5:end);
+hold <span class="string">on</span>; hl2 = plot_matrix3D(f_sparse,Ysparse,<span class="string">'showErrorbars'</span>,0,<span class="string">'do_mean'</span>,0,<span class="string">'LineSpec'</span>,{<span class="string">'k.'</span>,<span class="string">'MarkerSize'</span>,10,<span class="string">'LineWidth'</span>,2});
+legend([hl1{1}; hl2{1}(1)],signames,<span class="string">'Frequency bins for bargraph'</span>);
+xlabel(<span class="string">'Freq (Hz)'</span>); ylabel(<span class="string">'Power'</span>);
+subplot(1,2,2); hl = bar_matrix3D(Ysparse,<span class="string">'active_dim'</span>,2); xlabel(<span class="string">'Frequency bin'</span>); ylabel(<span class="string">'Power'</span>); ylim([0 0.08])
+title(<span class="string">'*p &lt; 0.05 relative to Signal #1'</span>);
+legend(hl,signames{:})
+</pre><img vspace="5" hspace="5" src="plott_demo2_3D_data_06.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Plotting 3D Data - Noisy signal set
+% Explores the spectral properties of a 3D matrix making use of several
+% commands from the plotting package.
+
+
+%% Set up signals
+set(0, 'DefaultFigureColor', 'White');
+params.tapers = [3 5];
+
+% Load a bunch of random signals
+load ex_c5_100
+
+
+% Order data so in the form Ndata x Ntrials x Nsignals
+[~,ind] = sort(sig_CLU);
+X = signals(ind,:)';
+X = reshape(X,[512,100,5]);
+X = X(:,1:5,:);            % Take a subset - only a few trials
+[Ndata, Ntrials, Nsignals] = size(X);
+Fs = 500;
+signames = arrayfun(@(x) ['Signal #' num2str(x)],1:Nsignals,'UniformOutput',0);
+
+% Add some additional noise to a few trials to make things interesting
+Xnoise = 1*randn([Ndata,2,Nsignals]);
+X(:,[3 5],:) = X(:,[3 5],:) + Xnoise;
+
+
+%% plot_matrix3D: Plot mean data
+figure; hl = plot_matrix3D(X(:,:,:),'fs',Fs,'do_mean',1,'do_shift',2); title('Averages');
+legend(hl,arrayfun(@(x) ['Chirp #' num2str(x)],1:Nsignals,'UniformOutput',0))
+xlabel('time (s)');
+
+%% plot_matrix3D: Plot raw data
+figure; plot_matrix3D(X,'fs',Fs,'do_mean',0,'showErrorbars',0,'do_shift',4,'active_dim',3,'do_zscore',1); title('Raw data');
+xlabel('time (s)');
+
+%% plot_ani_pairs: Animated plot along trials
+% A few signals suffer from high noise - try to spot them
+% (hint, it's trials 3 and 5)
+figure;
+plot_ani_pairs(X(:,:,1),@plot_fs,X(:,:,2),@plot_fs,X(:,:,3), ...
+    @plot_fs,X(:,:,4),@plot_fs,'plotargs',{'fs',Fs});
+
+%% plot_ani: Animated spectrogram plots to identify bad trials
+figl;   % Large figure
+plot_ani(X(:,:,3),'fs',Fs,'fname',{@plot_fs,@plot_spect});
+
+
+% Remove the bad trials
+ind = true(1,size(X,2)); ind([3,5]) = 0;
+X = X(:,ind,:);
+
+
+%% plot_ani: Plot all powerspectra
+plot_ani(X,'fname',@(X) plot_psd(X,'fs',Fs,'params',params));
+% figure; hl= plot_psd(X,'fs',Fs); ylabel('Power');
+
+%% Set up data for plotting some statistics
+
+% Take the PSDs of this 3D matrix. Need to do some cell arrays to handle 3D matrix, unfortunately
+sz = size(X);
+Xcell = mat2cell(X,[sz(1)],[sz(2)],[ones(1,sz(3))]);
+[P,f] = cellfun(@(X) psd_wrapper(X,'fs',Fs,'params',params),Xcell,'UniformOutput',0);
+f = f{1};
+P = cell2mat(P);
+
+% Take segment of data from 1 - 4Hz. 
+index = find(f >= 1 & f < 15);
+Y = P(index,:,:);
+f2 = f(index);
+
+%% bar_matrix3D: Test for significant difference in three frequency bins
+figl;
+subplot(1,2,1); hl1 = plot_matrix3D(f2,Y,'showErrorbars',0,'do_mean',0);
+legend(hl1{1},signames);
+Ysparse = Y(1:5:end,:,:); f_sparse = f2(1:5:end);
+hold on; hl2 = plot_matrix3D(f_sparse,Ysparse,'showErrorbars',0,'do_mean',0,'LineSpec',{'k.','MarkerSize',10,'LineWidth',2});
+legend([hl1{1}; hl2{1}(1)],signames,'Frequency bins for bargraph');
+xlabel('Freq (Hz)'); ylabel('Power');
+subplot(1,2,2); hl = bar_matrix3D(Ysparse,'active_dim',2); xlabel('Frequency bin'); ylabel('Power'); ylim([0 0.08])
+title('*p < 0.05 relative to Signal #1');
+legend(hl,signames{:})
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
