@@ -2,9 +2,9 @@
                 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-  <title>Description of plot_handles</title>
-  <meta name="keywords" content="plot_handles">
-  <meta name="description" content="[h,hl] = plot_handles(fname,fsubplot,varargin)">
+  <title>Description of plott_handles</title>
+  <meta name="keywords" content="plott_handles">
+  <meta name="description" content="[h,hl] = plott_handles(fname,fsubplot,varargin)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -12,27 +12,27 @@
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plot_handles.m</div>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plott_handles.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for plott_code&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
 
-<h1>plot_handles
+<h1>plott_handles
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>[h,hl] = plot_handles(fname,fsubplot,varargin)</strong></div>
+<div class="box"><strong>[h,hl] = plott_handles(fname,fsubplot,varargin)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function [h,hl] = plot_handles(fname,varargin) </strong></div>
+<div class="box"><strong>function [h,hl] = plott_handles(fname,varargin) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment">     [h,hl] = plot_handles(fname,fsubplot,varargin)
+<div class="fragment"><pre class="comment">     [h,hl] = plott_handles(fname,fsubplot,varargin)
      Takes in a cell array of function handles and plots them in a bunch of
      subplots on a single figure
      FORMS
-         plot_handles(fname,varargin)
-         plot_handles(fname,fsubplot,varargin)
+         plott_handles(fname,varargin)
+         plott_handles(fname,fsubplot,varargin)
      
      INPUTS
          fname - cell array of function handles to plot
@@ -45,10 +45,10 @@
      Example 1
      load audio48
      x = signal48kHz(1:round(end/10));
-     fnames = {@plot,@loglog,@plot_psd,@(t,x) plot_spect(t,x,'mode',1,'logplot',1)};
+     fnames = {@plot,@loglog,@plott_psd,@(t,x) plott_spect(t,x,'mode',1,'logplot',1)};
      t = 1:length(x); t=t/Fs48;
-     figure; plot_handles(fnames,t,x);
-     figure; plot_handles(fnames,@subplotrows,t,x); % Plot with different subplot arrangement
+     figure; plott_handles(fnames,t,x);
+     figure; plott_handles(fnames,@subplotrows,t,x); % Plot with different subplot arrangement
  
      CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</pre></div>
 
@@ -59,7 +59,7 @@ This function calls:
 <li><a href="subplotsq.html" class="code" title="function h=subplotsq(N,i)">subplotsq</a>	h=subplotsq(N,i)</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="plot_all.html" class="code" title="function [h,hl] = plot_all(varargin)">plot_all</a>	[h, hl] = plot_all(varargin)</li><li><a href="plot_ani.html" class="code" title="function [returns] = plot_ani(varargin)">plot_ani</a>	[returns] = plotani(X,fs,options)</li></ul>
+<li><a href="plott_all.html" class="code" title="function [h,hl] = plott_all(varargin)">plott_all</a>	[h, hl] = plott_all(varargin)</li><li><a href="plott_ani.html" class="code" title="function [returns] = plott_ani(varargin)">plott_ani</a>	[returns] = plotani(X,fs,options)</li></ul>
 <!-- crossreference -->
 
 
@@ -69,13 +69,13 @@ This function is called by:
 0002 
 0003 
 0004 
-0005 <a name="_sub0" href="#_subfunctions" class="code">function [h,hl] = plot_handles(fname,varargin)</a>
-0006 <span class="comment">%     [h,hl] = plot_handles(fname,fsubplot,varargin)</span>
+0005 <a name="_sub0" href="#_subfunctions" class="code">function [h,hl] = plott_handles(fname,varargin)</a>
+0006 <span class="comment">%     [h,hl] = plott_handles(fname,fsubplot,varargin)</span>
 0007 <span class="comment">%     Takes in a cell array of function handles and plots them in a bunch of</span>
 0008 <span class="comment">%     subplots on a single figure</span>
 0009 <span class="comment">%     FORMS</span>
-0010 <span class="comment">%         plot_handles(fname,varargin)</span>
-0011 <span class="comment">%         plot_handles(fname,fsubplot,varargin)</span>
+0010 <span class="comment">%         plott_handles(fname,varargin)</span>
+0011 <span class="comment">%         plott_handles(fname,fsubplot,varargin)</span>
 0012 <span class="comment">%</span>
 0013 <span class="comment">%     INPUTS</span>
 0014 <span class="comment">%         fname - cell array of function handles to plot</span>
@@ -88,10 +88,10 @@ This function is called by:
 0021 <span class="comment">%     Example 1</span>
 0022 <span class="comment">%     load audio48</span>
 0023 <span class="comment">%     x = signal48kHz(1:round(end/10));</span>
-0024 <span class="comment">%     fnames = {@plot,@loglog,@plot_psd,@(t,x) plot_spect(t,x,'mode',1,'logplot',1)};</span>
+0024 <span class="comment">%     fnames = {@plot,@loglog,@plott_psd,@(t,x) plott_spect(t,x,'mode',1,'logplot',1)};</span>
 0025 <span class="comment">%     t = 1:length(x); t=t/Fs48;</span>
-0026 <span class="comment">%     figure; plot_handles(fnames,t,x);</span>
-0027 <span class="comment">%     figure; plot_handles(fnames,@subplotrows,t,x); % Plot with different subplot arrangement</span>
+0026 <span class="comment">%     figure; plott_handles(fnames,t,x);</span>
+0027 <span class="comment">%     figure; plott_handles(fnames,@subplotrows,t,x); % Plot with different subplot arrangement</span>
 0028 <span class="comment">%</span>
 0029 <span class="comment">%     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</span>
 0030 <span class="comment">%</span>

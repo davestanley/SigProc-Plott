@@ -65,7 +65,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Plotting 2D Data - Bird Chirp Example</h1><!--introduction--><p>Explores the spectral properties of a 2D matrix making use of several commands from the plotting package. The philosophy of this package is rapid prototyping and exploration - most of the plots you see below can be produced with one or two commands.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load a bunch of signals (bird chirps)</a></li><li><a href="#2">plot_matrix3D: Plot the stacked raw data</a></li><li><a href="#3">plot_psd: Plot all powerspectra</a></li><li><a href="#4">plot_ani: Animated plot time series paired with spectrogram for each chirp</a></li><li><a href="#5">plot_all: Mean spectrogram of all data</a></li><li><a href="#6">Set up data for plotting statistics</a></li><li><a href="#7">Plot differences in power across chirps</a></li><li><a href="#8">bar_matrix3D: Plot difference across chirps</a></li></ul></div><h2>Load a bunch of signals (bird chirps)<a name="1"></a></h2><pre class="codeinput">set(0, <span class="string">'DefaultFigureColor'</span>, <span class="string">'White'</span>);
+  </style></head><body><div class="content"><h1>Plotting 2D Data - Bird Chirp Example</h1><!--introduction--><p>Explores the spectral properties of a 2D matrix making use of several commands from the plotting package. The philosophy of this package is rapid prototyping and exploration - most of the plots you see below can be produced with one or two commands.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load a bunch of signals (bird chirps)</a></li><li><a href="#2">plott_matrix3D: Plot the stacked raw data</a></li><li><a href="#3">plott_psd: Plot all powerspectra</a></li><li><a href="#4">plott_ani: Animated plot time series paired with spectrogram for each chirp</a></li><li><a href="#5">plott_all: Mean spectrogram of all data</a></li><li><a href="#6">Set up data for plotting statistics</a></li><li><a href="#7">Plot differences in power across chirps</a></li><li><a href="#8">bar_matrix3D: Plot difference across chirps</a></li></ul></div><h2>Load a bunch of signals (bird chirps)<a name="1"></a></h2><pre class="codeinput">set(0, <span class="string">'DefaultFigureColor'</span>, <span class="string">'White'</span>);
 load <span class="string">chirp</span>
 Ndata = 1000;
 Nchirps = 8;
@@ -74,12 +74,12 @@ chirp_midpoints = chirp_midpoints(1:Nchirps);
 chirp_coords = repmat(chirp_midpoints,Ndata,1) + repmat([1:Ndata]' - floor(Ndata/2) - 1,1,Nchirps);
 X = y(chirp_coords);
 chirpnames = arrayfun(@(x) [<span class="string">'Chirp #'</span> num2str(x)],1:Nchirps,<span class="string">'UniformOutput'</span>,0);
-</pre><h2>plot_matrix3D: Plot the stacked raw data<a name="2"></a></h2><pre class="codeinput">figure; hl= plot_matrix3D(X,<span class="string">'fs'</span>,Fs,<span class="string">'do_mean'</span>,1,<span class="string">'showErrorbars'</span>,1,<span class="string">'do_shift'</span>,2,<span class="string">'active_dim'</span>,3); title(<span class="string">'Raw data'</span>);
+</pre><h2>plott_matrix3D: Plot the stacked raw data<a name="2"></a></h2><pre class="codeinput">figure; hl= plott_matrix3D(X,<span class="string">'fs'</span>,Fs,<span class="string">'do_mean'</span>,1,<span class="string">'showErrorbars'</span>,1,<span class="string">'do_shift'</span>,2,<span class="string">'active_dim'</span>,3); title(<span class="string">'Raw data'</span>);
 legend(hl,chirpnames); xlabel(<span class="string">'Time (s)'</span>); ylabel(<span class="string">'Signal'</span>);
-</pre><img vspace="5" hspace="5" src="plott_demo_01.png" alt=""> <h2>plot_psd: Plot all powerspectra<a name="3"></a></h2><pre class="codeinput">figure; hl= plot_psd(X,<span class="string">'fs'</span>,Fs); ylabel(<span class="string">'Power'</span>);
+</pre><img vspace="5" hspace="5" src="plott_demo_01.png" alt=""> <h2>plott_psd: Plot all powerspectra<a name="3"></a></h2><pre class="codeinput">figure; hl= plott_psd(X,<span class="string">'fs'</span>,Fs); ylabel(<span class="string">'Power'</span>);
 legend(hl,chirpnames);
-</pre><img vspace="5" hspace="5" src="plott_demo_02.png" alt=""> <h2>plot_ani: Animated plot time series paired with spectrogram for each chirp<a name="4"></a></h2><pre class="codeinput">figl; plot_ani(X(:,:),<span class="string">'fs'</span>,Fs,<span class="string">'fname'</span>,{@plot_fs,@plot_spect});
-</pre><img vspace="5" hspace="5" src="plott_demo_03.png" alt=""> <h2>plot_all: Mean spectrogram of all data<a name="5"></a></h2><pre class="codeinput">figl; [h, hl] = plot_all(X,<span class="string">'fs'</span>,Fs,<span class="string">'psd_on'</span>,0);
+</pre><img vspace="5" hspace="5" src="plott_demo_02.png" alt=""> <h2>plott_ani: Animated plot time series paired with spectrogram for each chirp<a name="4"></a></h2><pre class="codeinput">figl; plott_ani(X(:,:),<span class="string">'fs'</span>,Fs,<span class="string">'fname'</span>,{@plott_fs,@plott_spect});
+</pre><img vspace="5" hspace="5" src="plott_demo_03.png" alt=""> <h2>plott_all: Mean spectrogram of all data<a name="5"></a></h2><pre class="codeinput">figl; [h, hl] = plott_all(X,<span class="string">'fs'</span>,Fs,<span class="string">'psd_on'</span>,0);
 legend(hl{1},chirpnames);
 ylabel(<span class="string">'Signal'</span>);
 </pre><img vspace="5" hspace="5" src="plott_demo_04.png" alt=""> <h2>Set up data for plotting statistics<a name="6"></a></h2><p>Calculate all spectra</p><pre class="codeinput">[P, f] = psd_wrapper(X,<span class="string">'fs'</span>,Fs);
@@ -124,19 +124,19 @@ chirp_coords = repmat(chirp_midpoints,Ndata,1) + repmat([1:Ndata]' - floor(Ndata
 X = y(chirp_coords);
 chirpnames = arrayfun(@(x) ['Chirp #' num2str(x)],1:Nchirps,'UniformOutput',0);
 
-%% plot_matrix3D: Plot the stacked raw data
-figure; hl= plot_matrix3D(X,'fs',Fs,'do_mean',1,'showErrorbars',1,'do_shift',2,'active_dim',3); title('Raw data');
+%% plott_matrix3D: Plot the stacked raw data
+figure; hl= plott_matrix3D(X,'fs',Fs,'do_mean',1,'showErrorbars',1,'do_shift',2,'active_dim',3); title('Raw data');
 legend(hl,chirpnames); xlabel('Time (s)'); ylabel('Signal');
 
-%% plot_psd: Plot all powerspectra
-figure; hl= plot_psd(X,'fs',Fs); ylabel('Power');
+%% plott_psd: Plot all powerspectra
+figure; hl= plott_psd(X,'fs',Fs); ylabel('Power');
 legend(hl,chirpnames);
 
-%% plot_ani: Animated plot time series paired with spectrogram for each chirp
-figl; plot_ani(X(:,:),'fs',Fs,'fname',{@plot_fs,@plot_spect});
+%% plott_ani: Animated plot time series paired with spectrogram for each chirp
+figl; plott_ani(X(:,:),'fs',Fs,'fname',{@plott_fs,@plott_spect});
 
-%% plot_all: Mean spectrogram of all data
-figl; [h, hl] = plot_all(X,'fs',Fs,'psd_on',0);
+%% plott_all: Mean spectrogram of all data
+figl; [h, hl] = plott_all(X,'fs',Fs,'psd_on',0);
 legend(hl{1},chirpnames);
 ylabel('Signal');
 

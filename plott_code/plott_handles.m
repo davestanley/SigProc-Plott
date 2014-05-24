@@ -2,13 +2,13 @@
 
 
 
-function [h,hl] = plot_handles(fname,varargin)
-%     [h,hl] = plot_handles(fname,fsubplot,varargin)
+function [h,hl] = plott_handles(fname,varargin)
+%     [h,hl] = plott_handles(fname,fsubplot,varargin)
 %     Takes in a cell array of function handles and plots them in a bunch of
 %     subplots on a single figure
 %     FORMS
-%         plot_handles(fname,varargin)
-%         plot_handles(fname,fsubplot,varargin)
+%         plott_handles(fname,varargin)
+%         plott_handles(fname,fsubplot,varargin)
 %     
 %     INPUTS
 %         fname - cell array of function handles to plot
@@ -21,10 +21,10 @@ function [h,hl] = plot_handles(fname,varargin)
 %     Example 1
 %     load audio48
 %     x = signal48kHz(1:round(end/10));
-%     fnames = {@plot,@loglog,@plot_psd,@(t,x) plot_spect(t,x,'mode',1,'logplot',1)};
+%     fnames = {@plot,@loglog,@plott_psd,@(t,x) plott_spect(t,x,'mode',1,'logplot',1)};
 %     t = 1:length(x); t=t/Fs48;
-%     figure; plot_handles(fnames,t,x);
-%     figure; plot_handles(fnames,@subplotrows,t,x); % Plot with different subplot arrangement
+%     figure; plott_handles(fnames,t,x);
+%     figure; plott_handles(fnames,@subplotrows,t,x); % Plot with different subplot arrangement
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 % 

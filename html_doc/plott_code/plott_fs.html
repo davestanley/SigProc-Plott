@@ -2,9 +2,9 @@
                 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-  <title>Description of plot_fs</title>
-  <meta name="keywords" content="plot_fs">
-  <meta name="description" content="hl = plot_fs(varargin)">
+  <title>Description of plott_fs</title>
+  <meta name="keywords" content="plott_fs">
+  <meta name="description" content="hl = plott_fs(varargin)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -12,29 +12,29 @@
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plot_fs.m</div>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plott_fs.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for plott_code&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
 
-<h1>plot_fs
+<h1>plott_fs
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>hl = plot_fs(varargin)</strong></div>
+<div class="box"><strong>hl = plott_fs(varargin)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function hl = plot_fs(varargin) </strong></div>
+<div class="box"><strong>function hl = plott_fs(varargin) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment">     hl = plot_fs(varargin)
+<div class="fragment"><pre class="comment">     hl = plott_fs(varargin)
      Like normal plot, but takes in an argument 'fs' and uses this to
      generate a time vector.
      FORMS
-         [hl] = plot_fs(x,...)            
-         [hl] = plot_fs(t,x,...)          
-         [hl] = plot_fs(x,'fs',fs,...)    
-         [hl] = plot_fs(t,x,'fs',fs,...)  
+         [hl] = plott_fs(x,...)            
+         [hl] = plott_fs(t,x,...)          
+         [hl] = plott_fs(x,'fs',fs,...)    
+         [hl] = plott_fs(t,x,'fs',fs,...)  
      INTPUTS
          t - input times, passed on to conventional plot function (spacing of t takes
              priority over fs if both are passed)
@@ -60,15 +60,15 @@ This function is called by:
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre>0001 
 0002 
-0003 <a name="_sub0" href="#_subfunctions" class="code">function hl = plot_fs(varargin)</a>
-0004 <span class="comment">%     hl = plot_fs(varargin)</span>
+0003 <a name="_sub0" href="#_subfunctions" class="code">function hl = plott_fs(varargin)</a>
+0004 <span class="comment">%     hl = plott_fs(varargin)</span>
 0005 <span class="comment">%     Like normal plot, but takes in an argument 'fs' and uses this to</span>
 0006 <span class="comment">%     generate a time vector.</span>
 0007 <span class="comment">%     FORMS</span>
-0008 <span class="comment">%         [hl] = plot_fs(x,...)</span>
-0009 <span class="comment">%         [hl] = plot_fs(t,x,...)</span>
-0010 <span class="comment">%         [hl] = plot_fs(x,'fs',fs,...)</span>
-0011 <span class="comment">%         [hl] = plot_fs(t,x,'fs',fs,...)</span>
+0008 <span class="comment">%         [hl] = plott_fs(x,...)</span>
+0009 <span class="comment">%         [hl] = plott_fs(t,x,...)</span>
+0010 <span class="comment">%         [hl] = plott_fs(x,'fs',fs,...)</span>
+0011 <span class="comment">%         [hl] = plott_fs(t,x,'fs',fs,...)</span>
 0012 <span class="comment">%     INTPUTS</span>
 0013 <span class="comment">%         t - input times, passed on to conventional plot function (spacing of t takes</span>
 0014 <span class="comment">%             priority over fs if both are passed)</span>

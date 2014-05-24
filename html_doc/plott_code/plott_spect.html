@@ -2,9 +2,9 @@
                 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-  <title>Description of plot_spect</title>
-  <meta name="keywords" content="plot_spect">
-  <meta name="description" content="[hl] = plot_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)">
+  <title>Description of plott_spect</title>
+  <meta name="keywords" content="plott_spect">
+  <meta name="description" content="[hl] = plott_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -12,30 +12,30 @@
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plot_spect.m</div>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plott_spect.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for plott_code&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
 
-<h1>plot_spect
+<h1>plott_spect
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>[hl] = plot_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)</strong></div>
+<div class="box"><strong>[hl] = plott_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function hl = plot_spect(varargin) </strong></div>
+<div class="box"><strong>function hl = plott_spect(varargin) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment">     [hl] = plot_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)
+<div class="fragment"><pre class="comment">     [hl] = plott_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)
      Takes input time series and plots the spectrogram using one of several methods
      (calls spect_wrapper.m)
      v1.0 David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
      FORMS
-         [hl] = plot_spect(X)
-         [hl] = plot_spect(t,X)
-         [hl] = plot_spect(X,options)
-         [hl] = plot_spect(t,X,options)
+         [hl] = plott_spect(X)
+         [hl] = plott_spect(t,X)
+         [hl] = plott_spect(X,options)
+         [hl] = plott_spect(t,X,options)
      INPUTS
          t - times (vector)
          X - data (vector/matrix)
@@ -60,25 +60,25 @@
      X = x;
      t = 1:size(X,1);
      subplotrows(2,1); out1 = plot(t,X);
-     subplotrows(2,2); out2 = plot_spect(X,'fs',1e3,'mode',1,'logplot',1);
+     subplotrows(2,2); out2 = plott_spect(X,'fs',1e3,'mode',1,'logplot',1);
  
      Example 2 - Plot 2D Matrix
      X = cumsum(randn([1000,5]));
      t = 1:size(X,1);
      subplotrows(2,1); out1 = plot(t,X);
-     subplotrows(2,2); out2 = plot_spect(X,'fs',1e3,'mode',1,'logplot',1);
+     subplotrows(2,2); out2 = plott_spect(X,'fs',1e3,'mode',1,'logplot',1);
  
      Example 3
      fs = 1e3;
      t=(0:1/fs:1)'; X = [sin(2*20*pi*t.*t)]+0;
      subplotrows(2,1); out1 = plot(t,X);
-     subplotrows(2,2); out2 = plot_spect(X,'fs',fs,'mode',1,'Nwind',300); ylim([0 100])
+     subplotrows(2,2); out2 = plott_spect(X,'fs',fs,'mode',1,'Nwind',300); ylim([0 100])
  
      Example 4
      load chirp
      t = 1:length(y); t=t/Fs;
      subplotrows(2,1); out1 = plot(t,y);
-     subplotrows(2,2); out2 = plot_spect(y,'fs',Fs,'mode',1,'Nwind',300,'logplot',1);
+     subplotrows(2,2); out2 = plott_spect(y,'fs',Fs,'mode',1,'Nwind',300,'logplot',1);
  
      CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</pre></div>
 
@@ -89,7 +89,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="plot_all.html" class="code" title="function [h,hl] = plot_all(varargin)">plot_all</a>	[h, hl] = plot_all(varargin)</li></ul>
+<li><a href="plott_all.html" class="code" title="function [h,hl] = plott_all(varargin)">plott_all</a>	[h, hl] = plott_all(varargin)</li></ul>
 <!-- crossreference -->
 
 
@@ -97,16 +97,16 @@ This function is called by:
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre>0001 
 0002 
-0003 <a name="_sub0" href="#_subfunctions" class="code">function hl = plot_spect(varargin)</a>
-0004 <span class="comment">%     [hl] = plot_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)</span>
+0003 <a name="_sub0" href="#_subfunctions" class="code">function hl = plott_spect(varargin)</a>
+0004 <span class="comment">%     [hl] = plott_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)</span>
 0005 <span class="comment">%     Takes input time series and plots the spectrogram using one of several methods</span>
 0006 <span class="comment">%     (calls spect_wrapper.m)</span>
 0007 <span class="comment">%     v1.0 David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</span>
 0008 <span class="comment">%     FORMS</span>
-0009 <span class="comment">%         [hl] = plot_spect(X)</span>
-0010 <span class="comment">%         [hl] = plot_spect(t,X)</span>
-0011 <span class="comment">%         [hl] = plot_spect(X,options)</span>
-0012 <span class="comment">%         [hl] = plot_spect(t,X,options)</span>
+0009 <span class="comment">%         [hl] = plott_spect(X)</span>
+0010 <span class="comment">%         [hl] = plott_spect(t,X)</span>
+0011 <span class="comment">%         [hl] = plott_spect(X,options)</span>
+0012 <span class="comment">%         [hl] = plott_spect(t,X,options)</span>
 0013 <span class="comment">%     INPUTS</span>
 0014 <span class="comment">%         t - times (vector)</span>
 0015 <span class="comment">%         X - data (vector/matrix)</span>
@@ -131,25 +131,25 @@ This function is called by:
 0034 <span class="comment">%     X = x;</span>
 0035 <span class="comment">%     t = 1:size(X,1);</span>
 0036 <span class="comment">%     subplotrows(2,1); out1 = plot(t,X);</span>
-0037 <span class="comment">%     subplotrows(2,2); out2 = plot_spect(X,'fs',1e3,'mode',1,'logplot',1);</span>
+0037 <span class="comment">%     subplotrows(2,2); out2 = plott_spect(X,'fs',1e3,'mode',1,'logplot',1);</span>
 0038 <span class="comment">%</span>
 0039 <span class="comment">%     Example 2 - Plot 2D Matrix</span>
 0040 <span class="comment">%     X = cumsum(randn([1000,5]));</span>
 0041 <span class="comment">%     t = 1:size(X,1);</span>
 0042 <span class="comment">%     subplotrows(2,1); out1 = plot(t,X);</span>
-0043 <span class="comment">%     subplotrows(2,2); out2 = plot_spect(X,'fs',1e3,'mode',1,'logplot',1);</span>
+0043 <span class="comment">%     subplotrows(2,2); out2 = plott_spect(X,'fs',1e3,'mode',1,'logplot',1);</span>
 0044 <span class="comment">%</span>
 0045 <span class="comment">%     Example 3</span>
 0046 <span class="comment">%     fs = 1e3;</span>
 0047 <span class="comment">%     t=(0:1/fs:1)'; X = [sin(2*20*pi*t.*t)]+0;</span>
 0048 <span class="comment">%     subplotrows(2,1); out1 = plot(t,X);</span>
-0049 <span class="comment">%     subplotrows(2,2); out2 = plot_spect(X,'fs',fs,'mode',1,'Nwind',300); ylim([0 100])</span>
+0049 <span class="comment">%     subplotrows(2,2); out2 = plott_spect(X,'fs',fs,'mode',1,'Nwind',300); ylim([0 100])</span>
 0050 <span class="comment">%</span>
 0051 <span class="comment">%     Example 4</span>
 0052 <span class="comment">%     load chirp</span>
 0053 <span class="comment">%     t = 1:length(y); t=t/Fs;</span>
 0054 <span class="comment">%     subplotrows(2,1); out1 = plot(t,y);</span>
-0055 <span class="comment">%     subplotrows(2,2); out2 = plot_spect(y,'fs',Fs,'mode',1,'Nwind',300,'logplot',1);</span>
+0055 <span class="comment">%     subplotrows(2,2); out2 = plott_spect(y,'fs',Fs,'mode',1,'Nwind',300,'logplot',1);</span>
 0056 <span class="comment">%</span>
 0057 <span class="comment">%     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</span>
 0058 <span class="comment">%</span>

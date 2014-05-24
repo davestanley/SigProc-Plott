@@ -1,15 +1,15 @@
 
 
-function hl = plot_spect(varargin)
-%     [hl] = plot_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)
+function hl = plott_spect(varargin)
+%     [hl] = plott_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)
 %     Takes input time series and plots the spectrogram using one of several methods
 %     (calls spect_wrapper.m)
 %     v1.0 David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 %     FORMS
-%         [hl] = plot_spect(X)
-%         [hl] = plot_spect(t,X)
-%         [hl] = plot_spect(X,options)
-%         [hl] = plot_spect(t,X,options)
+%         [hl] = plott_spect(X)
+%         [hl] = plott_spect(t,X)
+%         [hl] = plott_spect(X,options)
+%         [hl] = plott_spect(t,X,options)
 %     INPUTS
 %         t - times (vector)
 %         X - data (vector/matrix)
@@ -34,25 +34,25 @@ function hl = plot_spect(varargin)
 %     X = x;
 %     t = 1:size(X,1);
 %     subplotrows(2,1); out1 = plot(t,X);
-%     subplotrows(2,2); out2 = plot_spect(X,'fs',1e3,'mode',1,'logplot',1);
+%     subplotrows(2,2); out2 = plott_spect(X,'fs',1e3,'mode',1,'logplot',1);
 % 
 %     Example 2 - Plot 2D Matrix
 %     X = cumsum(randn([1000,5]));
 %     t = 1:size(X,1);
 %     subplotrows(2,1); out1 = plot(t,X);
-%     subplotrows(2,2); out2 = plot_spect(X,'fs',1e3,'mode',1,'logplot',1);
+%     subplotrows(2,2); out2 = plott_spect(X,'fs',1e3,'mode',1,'logplot',1);
 % 
 %     Example 3
 %     fs = 1e3;
 %     t=(0:1/fs:1)'; X = [sin(2*20*pi*t.*t)]+0;
 %     subplotrows(2,1); out1 = plot(t,X);
-%     subplotrows(2,2); out2 = plot_spect(X,'fs',fs,'mode',1,'Nwind',300); ylim([0 100])
+%     subplotrows(2,2); out2 = plott_spect(X,'fs',fs,'mode',1,'Nwind',300); ylim([0 100])
 % 
 %     Example 4
 %     load chirp
 %     t = 1:length(y); t=t/Fs;
 %     subplotrows(2,1); out1 = plot(t,y);
-%     subplotrows(2,2); out2 = plot_spect(y,'fs',Fs,'mode',1,'Nwind',300,'logplot',1);
+%     subplotrows(2,2); out2 = plott_spect(y,'fs',Fs,'mode',1,'Nwind',300,'logplot',1);
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 % 

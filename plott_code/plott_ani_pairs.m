@@ -1,14 +1,14 @@
 
 
 
-function [returns] = plot_ani_pairs(varargin)
-%     [returns] = plot_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)
+function [returns] = plott_ani_pairs(varargin)
+%     [returns] = plott_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)
 %     Takes a set of matrices X1,X2,X3, etc. paired with an equal number
 %     of function handles. Creates a figure with a bunch of subplots, and runs
-%     plot_ani for each of the subplots across the columns of X1,X2,X3. See
+%     plott_ani for each of the subplots across the columns of X1,X2,X3. See
 %     examples for clarity.
 %     FORMS
-%         [returns] = plot_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)
+%         [returns] = plott_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)
 % 
 %     INTPUTS
 %         Xi - vector or matrix of data, where rows are times and columns are variables
@@ -27,15 +27,15 @@ function [returns] = plot_ani_pairs(varargin)
 %     EXAMPLE
 %     Example 1 - Plot 3 separate 3D matrices
 %     X = abs(randn([100,5,2])); Y = -X; Z = (X).^2;
-%     out = plot_ani_pairs(X,@plot,Y,@plot,Z,@loglog,'fsubplot',@subplotsq);
+%     out = plott_ani_pairs(X,@plot,Y,@plot,Z,@loglog,'fsubplot',@subplotsq);
 %     
 %     Example 2 - Plot 3 separate 2D matrix that are converted to 3D using the 
 %                 splitup option
 %     fs = 0.9;
 %     t=(1:1/fs:950)'; X = [sin(2*pi/21*t) 1.1*sin(2*pi/21*t)+0]; Y = -X; Z = abs(X)+1;
-%     out = plot_ani_pairs(X,@plot, ...
+%     out = plott_ani_pairs(X,@plot, ...
 %         Y,@(x) plot([1:length(x)]/fs,x), ...
-%         Y,@(x) plot_matrix3D(x,'fs',fs,'do_mean',0,'do_shift',0.3), ...
+%         Y,@(x) plott_matrix3D(x,'fs',fs,'do_mean',0,'do_shift',0.3), ...
 %         Z,@loglog,'fsubplot',@subplotrows,'splitup',100);
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)

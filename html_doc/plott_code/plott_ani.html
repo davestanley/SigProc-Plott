@@ -2,8 +2,8 @@
                 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-  <title>Description of plot_ani</title>
-  <meta name="keywords" content="plot_ani">
+  <title>Description of plott_ani</title>
+  <meta name="keywords" content="plott_ani">
   <meta name="description" content="[returns] = plotani(X,fs,options)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
@@ -12,19 +12,19 @@
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plot_ani.m</div>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plott_ani.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for plott_code&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
 
-<h1>plot_ani
+<h1>plott_ani
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="box"><strong>[returns] = plotani(X,fs,options)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function [returns] = plot_ani(varargin) </strong></div>
+<div class="box"><strong>function [returns] = plott_ani(varargin) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     [returns] = plotani(X,fs,options)
@@ -33,10 +33,10 @@
      handles are specified in a cell array, then each function handle
      will get its own subplot.
      FORMS
-         [returns] = plot_ani(X)
-         [returns] = plot_ani(t,X)
-         [returns] = plot_ani(X,options)
-         [returns] = plot_ani(t,X,options)
+         [returns] = plott_ani(X)
+         [returns] = plott_ani(t,X)
+         [returns] = plott_ani(X,options)
+         [returns] = plott_ani(t,X,options)
      INTPUTS
          t - 1D vector of times. This is just used to calculate fs
          X - vector or matrix of data, where rows are times and columns are variables
@@ -57,12 +57,12 @@
      Example 1 - Plot a 3D matrix
      X = abs(randn([100,5,2])); fname = {@plot, @loglog};
      t = 1:100; t = t/100;
-     out = plot_ani(t,X,'fs',1e-3,'randcol',0,'fname',fname);
+     out = plott_ani(t,X,'fs',1e-3,'randcol',0,'fname',fname);
      
      Example 2 - Plot a 2D matrix that is converted to 3D using splitup
      t=(1:950)'; X = [sin(2*pi/21*t) 1.1*sin(2*pi/21*t)]+1.1;
-     fname = {@plot, @loglog, @(x) plot_psd(x,'fs',1)};
-     out = plot_ani(X,'fname',fname,'splitup',100,'fs',1);
+     fname = {@plot, @loglog, @(x) plott_psd(x,'fs',1)};
+     out = plott_ani(X,'fname',fname,'splitup',100,'fs',1);
  
      CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</pre></div>
 
@@ -70,7 +70,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="plot_handles.html" class="code" title="function [h,hl] = plot_handles(fname,varargin)">plot_handles</a>	[h,hl] = plot_handles(fname,fsubplot,varargin)</li><li><a href="subplotsq.html" class="code" title="function h=subplotsq(N,i)">subplotsq</a>	h=subplotsq(N,i)</li></ul>
+<li><a href="plott_handles.html" class="code" title="function [h,hl] = plott_handles(fname,varargin)">plott_handles</a>	[h,hl] = plott_handles(fname,fsubplot,varargin)</li><li><a href="subplotsq.html" class="code" title="function h=subplotsq(N,i)">subplotsq</a>	h=subplotsq(N,i)</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
@@ -82,17 +82,17 @@ This function is called by:
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre>0001 
-0002 <a name="_sub0" href="#_subfunctions" class="code">function [returns] = plot_ani(varargin)</a>
+0002 <a name="_sub0" href="#_subfunctions" class="code">function [returns] = plott_ani(varargin)</a>
 0003 <span class="comment">%     [returns] = plotani(X,fs,options)</span>
 0004 <span class="comment">%     Takes in a 2D or 3D matrix and generates an animated plot that cycles through</span>
 0005 <span class="comment">%     the matrix columns when the user presses &quot;enter.&quot; If multiple function</span>
 0006 <span class="comment">%     handles are specified in a cell array, then each function handle</span>
 0007 <span class="comment">%     will get its own subplot.</span>
 0008 <span class="comment">%     FORMS</span>
-0009 <span class="comment">%         [returns] = plot_ani(X)</span>
-0010 <span class="comment">%         [returns] = plot_ani(t,X)</span>
-0011 <span class="comment">%         [returns] = plot_ani(X,options)</span>
-0012 <span class="comment">%         [returns] = plot_ani(t,X,options)</span>
+0009 <span class="comment">%         [returns] = plott_ani(X)</span>
+0010 <span class="comment">%         [returns] = plott_ani(t,X)</span>
+0011 <span class="comment">%         [returns] = plott_ani(X,options)</span>
+0012 <span class="comment">%         [returns] = plott_ani(t,X,options)</span>
 0013 <span class="comment">%     INTPUTS</span>
 0014 <span class="comment">%         t - 1D vector of times. This is just used to calculate fs</span>
 0015 <span class="comment">%         X - vector or matrix of data, where rows are times and columns are variables</span>
@@ -113,12 +113,12 @@ This function is called by:
 0030 <span class="comment">%     Example 1 - Plot a 3D matrix</span>
 0031 <span class="comment">%     X = abs(randn([100,5,2])); fname = {@plot, @loglog};</span>
 0032 <span class="comment">%     t = 1:100; t = t/100;</span>
-0033 <span class="comment">%     out = plot_ani(t,X,'fs',1e-3,'randcol',0,'fname',fname);</span>
+0033 <span class="comment">%     out = plott_ani(t,X,'fs',1e-3,'randcol',0,'fname',fname);</span>
 0034 <span class="comment">%</span>
 0035 <span class="comment">%     Example 2 - Plot a 2D matrix that is converted to 3D using splitup</span>
 0036 <span class="comment">%     t=(1:950)'; X = [sin(2*pi/21*t) 1.1*sin(2*pi/21*t)]+1.1;</span>
-0037 <span class="comment">%     fname = {@plot, @loglog, @(x) plot_psd(x,'fs',1)};</span>
-0038 <span class="comment">%     out = plot_ani(X,'fname',fname,'splitup',100,'fs',1);</span>
+0037 <span class="comment">%     fname = {@plot, @loglog, @(x) plott_psd(x,'fs',1)};</span>
+0038 <span class="comment">%     out = plott_ani(X,'fname',fname,'splitup',100,'fs',1);</span>
 0039 <span class="comment">%</span>
 0040 <span class="comment">%     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</span>
 0041 <span class="comment">%</span>
@@ -176,10 +176,10 @@ This function is called by:
 0093         <span class="keyword">end</span>
 0094         
 0095         <span class="keyword">if</span> length(reg) == 1
-0096             <a href="plot_handles.html" class="code" title="function [h,hl] = plot_handles(fname,varargin)">plot_handles</a>(fname,fsubplot,Xcurr,plotargs{:});
+0096             <a href="plott_handles.html" class="code" title="function [h,hl] = plott_handles(fname,varargin)">plott_handles</a>(fname,fsubplot,Xcurr,plotargs{:});
 0097         <span class="keyword">elseif</span> length(reg) == 2
 0098             t = 1:size(Xcurr,1); t = t / fs;
-0099             <a href="plot_handles.html" class="code" title="function [h,hl] = plot_handles(fname,varargin)">plot_handles</a>(fname,fsubplot,t,Xcurr,plotargs{:});
+0099             <a href="plott_handles.html" class="code" title="function [h,hl] = plott_handles(fname,varargin)">plott_handles</a>(fname,fsubplot,t,Xcurr,plotargs{:});
 0100         <span class="keyword">end</span>
 0101         
 0102 <span class="comment">%         prompt = 'Type a comment or hit enter to continue q to quit: ';</span>

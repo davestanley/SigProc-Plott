@@ -1,15 +1,15 @@
 
 
 
-function [hl] = plot_matrix3D(varargin)
-%     [hl] = plot_matrix3D(t,X,'options')
+function [hl] = plott_matrix3D(varargin)
+%     [hl] = plott_matrix3D(t,X,'options')
 %     Flexible plotting for 3D matrices
 %     Uses the boundedline function (by Kelly Kearney, available from Mathworks)
 %     FORMS
-%         [hl] = plot_matrix3D(X)
-%         [hl] = plot_matrix3D(t,X)
-%         [hl] = plot_matrix3D(X,'options')
-%         [hl] = plot_matrix3D(t,X,'options')
+%         [hl] = plott_matrix3D(X)
+%         [hl] = plott_matrix3D(t,X)
+%         [hl] = plott_matrix3D(X,'options')
+%         [hl] = plott_matrix3D(t,X,'options')
 %     INTPUTS
 %         X - vector or matrix of data. Can be 2D or 3D. If 3D, then one of
 %         the dimensions will be used for averaging. 
@@ -50,21 +50,21 @@ function [hl] = plot_matrix3D(varargin)
 %         subplotrows(2,2); plot(X(:,:,2)); title('Group 2 - basic plot');
 % 
 %         figure; title('Averaged with error bars showing SEM (standard error in mean)');
-%         h=plot_matrix3D(t, X,'do_mean',1,'do_zscore',0,'showErrorbars',1,'LineSpec',{'-'})
+%         h=plott_matrix3D(t, X,'do_mean',1,'do_zscore',0,'showErrorbars',1,'LineSpec',{'-'})
 % 
 %         figure; title('All data, without mean. Grouped along 2nd dimension');
-%         h=plot_matrix3D(t, X,'do_mean',0,'do_zscore',0,'showErrorbars',0,'LineSpec',{':'})
+%         h=plott_matrix3D(t, X,'do_mean',0,'do_zscore',0,'showErrorbars',0,'LineSpec',{':'})
 % 
 %         figure; title('Averaged with error bars showing SEM (standard error in mean)');
-%         h=plot_matrix3D(t, X,'do_mean',0,'do_zscore',0,'showErrorbars',0,'do_shift',10,'LineSpec',{'-'})
+%         h=plott_matrix3D(t, X,'do_mean',0,'do_zscore',0,'showErrorbars',0,'do_shift',10,'LineSpec',{'-'})
 % 
 %         figure; title('Averaged with error bars showing SEM (standard error in mean)');
-%         h=plot_matrix3D(t, X,'do_mean',0,'do_zscore',0,'showErrorbars',0,'do_shift',10,'active_dim',3,'LineSpec',{'-'})
+%         h=plott_matrix3D(t, X,'do_mean',0,'do_zscore',0,'showErrorbars',0,'do_shift',10,'active_dim',3,'LineSpec',{'-'})
 %         
 %         myfilter = [false(1,97) true(1,3)];        % Fitler to use only 3 of the original 100 data points in our average
 %                                                    % Useful for removing bad data
 %         figure; title('Averaged with error bars showing SEM (standard error in mean)');
-%         h=plot_matrix3D(t, X,'do_mean',1,'do_zscore',0,'showErrorbars',1,'LineSpec',{'-'},'do_filter',myfilter)
+%         h=plott_matrix3D(t, X,'do_mean',1,'do_zscore',0,'showErrorbars',1,'LineSpec',{'-'},'do_filter',myfilter)
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 % 

@@ -1,14 +1,14 @@
 
 
-function hl = plot_psd(varargin)
-%     [hl] = plot_psd(X,fs,'mode',mode,'params',params,'logplot',logplot)
+function hl = plott_psd(varargin)
+%     [hl] = plott_psd(X,fs,'mode',mode,'params',params,'logplot',logplot)
 %     Takes input time series and plots the PSD using one of several methods
 %     (calls psd_wrapper.m)
 %     FORMS
-%         [hl] = plot_psd(X)
-%         [hl] = plot_psd(t,X)
-%         [hl] = plot_psd(X,options)
-%         [hl] = plot_psd(t,X,options)
+%         [hl] = plott_psd(X)
+%         [hl] = plott_psd(t,X)
+%         [hl] = plott_psd(X,options)
+%         [hl] = plott_psd(t,X,options)
 %     INPUTS
 %         t - times (vector)
 %         X - data (vector/matrix)
@@ -30,11 +30,11 @@ function hl = plot_psd(varargin)
 %     X = x;
 %     t = 1:size(X,1);
 %     subplotrows(2,1); out1 = plot(t,X);
-%     subplotrows(2,2); out2 = plot_psd(X,'fs',1e3,'mode',1,'logplot',1);
+%     subplotrows(2,2); out2 = plott_psd(X,'fs',1e3,'mode',1,'logplot',1);
 % 
 %     Example 2 - Plot 2D matrix
 %     X = cumsum(randn([1000,5]));
-%     out = plot_psd(X,'fs',1e3,'mode',1,'logplot',1);
+%     out = plott_psd(X,'fs',1e3,'mode',1,'logplot',1);
 %     
 %     Example 3 - Plot 2D matrix in Chronux mode, with passing 
 %                 params structure to Chronux
@@ -42,7 +42,7 @@ function hl = plot_psd(varargin)
 %     t=(0:1/fs:1)'; X = [sin(2*20*pi*t) 1.1*sin(2*21*pi*t)]+1.1;
 %     params.trialave = 1;
 %     subplotrows(2,1); out1 = plot(t,X);
-%     subplotrows(2,2); out = plot_psd(X,'fs',fs,'mode',2,'params',params);
+%     subplotrows(2,2); out = plott_psd(X,'fs',fs,'mode',2,'params',params);
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 % 

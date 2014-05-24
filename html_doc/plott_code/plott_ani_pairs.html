@@ -2,9 +2,9 @@
                 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-  <title>Description of plot_ani_pairs</title>
-  <meta name="keywords" content="plot_ani_pairs">
-  <meta name="description" content="[returns] = plot_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)">
+  <title>Description of plott_ani_pairs</title>
+  <meta name="keywords" content="plott_ani_pairs">
+  <meta name="description" content="[returns] = plott_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -12,28 +12,28 @@
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plot_ani_pairs.m</div>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plott_ani_pairs.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for plott_code&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
 
-<h1>plot_ani_pairs
+<h1>plott_ani_pairs
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>[returns] = plot_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)</strong></div>
+<div class="box"><strong>[returns] = plott_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function [returns] = plot_ani_pairs(varargin) </strong></div>
+<div class="box"><strong>function [returns] = plott_ani_pairs(varargin) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment">     [returns] = plot_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)
+<div class="fragment"><pre class="comment">     [returns] = plott_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)
      Takes a set of matrices X1,X2,X3, etc. paired with an equal number
      of function handles. Creates a figure with a bunch of subplots, and runs
-     plot_ani for each of the subplots across the columns of X1,X2,X3. See
+     plott_ani for each of the subplots across the columns of X1,X2,X3. See
      examples for clarity.
      FORMS
-         [returns] = plot_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)
+         [returns] = plott_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)
  
      INTPUTS
          Xi - vector or matrix of data, where rows are times and columns are variables
@@ -52,15 +52,15 @@
      EXAMPLE
      Example 1 - Plot 3 separate 3D matrices
      X = abs(randn([100,5,2])); Y = -X; Z = (X).^2;
-     out = plot_ani_pairs(X,@plot,Y,@plot,Z,@loglog,'fsubplot',@subplotsq);
+     out = plott_ani_pairs(X,@plot,Y,@plot,Z,@loglog,'fsubplot',@subplotsq);
      
      Example 2 - Plot 3 separate 2D matrix that are converted to 3D using the 
                  splitup option
      fs = 0.9;
      t=(1:1/fs:950)'; X = [sin(2*pi/21*t) 1.1*sin(2*pi/21*t)+0]; Y = -X; Z = abs(X)+1;
-     out = plot_ani_pairs(X,@plot, ...
+     out = plott_ani_pairs(X,@plot, ...
          Y,@(x) plot([1:length(x)]/fs,x), ...
-         Y,@(x) plot_matrix3D(x,'fs',fs,'do_mean',0,'do_shift',0.3), ...
+         Y,@(x) plott_matrix3D(x,'fs',fs,'do_mean',0,'do_shift',0.3), ...
          Z,@loglog,'fsubplot',@subplotrows,'splitup',100);
  
      CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</pre></div>
@@ -83,14 +83,14 @@ This function is called by:
 <div class="fragment"><pre>0001 
 0002 
 0003 
-0004 <a name="_sub0" href="#_subfunctions" class="code">function [returns] = plot_ani_pairs(varargin)</a>
-0005 <span class="comment">%     [returns] = plot_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)</span>
+0004 <a name="_sub0" href="#_subfunctions" class="code">function [returns] = plott_ani_pairs(varargin)</a>
+0005 <span class="comment">%     [returns] = plott_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)</span>
 0006 <span class="comment">%     Takes a set of matrices X1,X2,X3, etc. paired with an equal number</span>
 0007 <span class="comment">%     of function handles. Creates a figure with a bunch of subplots, and runs</span>
-0008 <span class="comment">%     plot_ani for each of the subplots across the columns of X1,X2,X3. See</span>
+0008 <span class="comment">%     plott_ani for each of the subplots across the columns of X1,X2,X3. See</span>
 0009 <span class="comment">%     examples for clarity.</span>
 0010 <span class="comment">%     FORMS</span>
-0011 <span class="comment">%         [returns] = plot_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)</span>
+0011 <span class="comment">%         [returns] = plott_ani_pairs(X1,fhandle1,X2,fhandle2,...XN,fhandleN,options)</span>
 0012 <span class="comment">%</span>
 0013 <span class="comment">%     INTPUTS</span>
 0014 <span class="comment">%         Xi - vector or matrix of data, where rows are times and columns are variables</span>
@@ -109,15 +109,15 @@ This function is called by:
 0027 <span class="comment">%     EXAMPLE</span>
 0028 <span class="comment">%     Example 1 - Plot 3 separate 3D matrices</span>
 0029 <span class="comment">%     X = abs(randn([100,5,2])); Y = -X; Z = (X).^2;</span>
-0030 <span class="comment">%     out = plot_ani_pairs(X,@plot,Y,@plot,Z,@loglog,'fsubplot',@subplotsq);</span>
+0030 <span class="comment">%     out = plott_ani_pairs(X,@plot,Y,@plot,Z,@loglog,'fsubplot',@subplotsq);</span>
 0031 <span class="comment">%</span>
 0032 <span class="comment">%     Example 2 - Plot 3 separate 2D matrix that are converted to 3D using the</span>
 0033 <span class="comment">%                 splitup option</span>
 0034 <span class="comment">%     fs = 0.9;</span>
 0035 <span class="comment">%     t=(1:1/fs:950)'; X = [sin(2*pi/21*t) 1.1*sin(2*pi/21*t)+0]; Y = -X; Z = abs(X)+1;</span>
-0036 <span class="comment">%     out = plot_ani_pairs(X,@plot, ...</span>
+0036 <span class="comment">%     out = plott_ani_pairs(X,@plot, ...</span>
 0037 <span class="comment">%         Y,@(x) plot([1:length(x)]/fs,x), ...</span>
-0038 <span class="comment">%         Y,@(x) plot_matrix3D(x,'fs',fs,'do_mean',0,'do_shift',0.3), ...</span>
+0038 <span class="comment">%         Y,@(x) plott_matrix3D(x,'fs',fs,'do_mean',0,'do_shift',0.3), ...</span>
 0039 <span class="comment">%         Z,@loglog,'fsubplot',@subplotrows,'splitup',100);</span>
 0040 <span class="comment">%</span>
 0041 <span class="comment">%     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</span>

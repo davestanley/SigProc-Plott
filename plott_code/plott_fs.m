@@ -1,14 +1,14 @@
 
 
-function hl = plot_fs(varargin)
-%     hl = plot_fs(varargin)
+function hl = plott_fs(varargin)
+%     hl = plott_fs(varargin)
 %     Like normal plot, but takes in an argument 'fs' and uses this to
 %     generate a time vector.
 %     FORMS
-%         [hl] = plot_fs(x,...)            
-%         [hl] = plot_fs(t,x,...)          
-%         [hl] = plot_fs(x,'fs',fs,...)    
-%         [hl] = plot_fs(t,x,'fs',fs,...)  
+%         [hl] = plott_fs(x,...)            
+%         [hl] = plott_fs(t,x,...)          
+%         [hl] = plott_fs(x,'fs',fs,...)    
+%         [hl] = plott_fs(t,x,'fs',fs,...)  
 %     INTPUTS
 %         t - input times, passed on to conventional plot function (spacing of t takes
 %             priority over fs if both are passed)

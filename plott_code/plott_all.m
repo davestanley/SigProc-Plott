@@ -1,13 +1,13 @@
 
 
-function [h,hl] = plot_all(varargin)
-%     [h, hl] = plot_all(varargin)
+function [h,hl] = plott_all(varargin)
+%     [h, hl] = plott_all(varargin)
 %     Plots the time series, psd, and spectrogram in a series of subplots.
 %     FORMS
-%         [h, hl] = plot_all(X)
-%         [h, hl] = plot_all(t,X)
-%         [h, hl] = plot_all(X,options)
-%         [h, hl] = plot_all(t,X,options)
+%         [h, hl] = plott_all(X)
+%         [h, hl] = plott_all(t,X)
+%         [h, hl] = plott_all(X,options)
+%         [h, hl] = plott_all(t,X,options)
 %     INTPUTS
 %         t - 1D vector of times.
 %         X - data (vector/matrix)
@@ -20,7 +20,7 @@ function [h,hl] = plot_all(varargin)
 %                       - only used if mode=2
 %         logplot - log scale plotting (boolean, Default=0)
 %         psd_on - Set to 1/0 to display/hide psd. This can also be
-%               a cell array of name value option pairs to pass to plot_psd
+%               a cell array of name value option pairs to pass to plott_psd
 %         spect_on - Set to 1/0 to display/hide spectrogram. This can also be
 %               a cell array of name value option pairs to pass to plot_spec 
 %     OUTPUTS
@@ -30,18 +30,18 @@ function [h,hl] = plot_all(varargin)
 %     Example 1 - Basic plot
 %     load pinknoise
 %     X = x(1:1000); t = 1:size(X,1);
-%     figure; out2 = plot_all(X,'fs',1e3,'mode',1,'logplot',1);
+%     figure; out2 = plott_all(X,'fs',1e3,'mode',1,'logplot',1);
 %     
 %     Example 2 - Plot of 2D matrix
 %     X = cumsum(randn([1000,5]));
 %     t = 1:size(X,1);
-%     figure; out2 = plot_all(X,'fs',1e3,'mode',1,'logplot',1);
+%     figure; out2 = plott_all(X,'fs',1e3,'mode',1,'logplot',1);
 %     
 %     Example 3 - Passing options to spect on
 %     load chirp
 %     Fs = 500;
 %     t = 1:length(y); t=t/Fs;
-%     figure; plot_all(y,'fs',Fs,'mode',1,'spect_on',{'Nwind',300},'logplot',1);
+%     figure; plott_all(y,'fs',Fs,'mode',1,'spect_on',{'Nwind',300},'logplot',1);
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 % 
@@ -79,15 +79,15 @@ function [h,hl] = plot_all(varargin)
     
     if spect_on
         cp=cp+1;
-        fname{cp}=@(t,x) plot_spect_cust(t,x,'fs',fs,'mode',mode,'logplot',logplot,'params',params,spect_args{:});
+        fname{cp}=@(t,x) plott_spect_cust(t,x,'fs',fs,'mode',mode,'logplot',logplot,'params',params,spect_args{:});
     end
     
     if psd_on
         cp=cp+1;
-        fname{cp}=@(t,x) plot_psd_cust(t,x,'fs',fs,'mode',psd_mode,'logplot',logplot,'params',params,psd_args{:});
+        fname{cp}=@(t,x) plott_psd_cust(t,x,'fs',fs,'mode',psd_mode,'logplot',logplot,'params',params,psd_args{:});
     end
     
-    [h,hl] = plot_handles(fname,fsubplot,t,X);
+    [h,hl] = plott_handles(fname,fsubplot,t,X);
     
 %     
 %     
@@ -99,7 +99,7 @@ function [h,hl] = plot_all(varargin)
 %         cp=cp+1;
 %         h(cp)=subplotsq(Nplots,cp);
 %         
-%         hl{cp} = plot_psd(X,1/dt,psd_mode);
+%         hl{cp} = plott_psd(X,1/dt,psd_mode);
 % 
 %     end
 %     
@@ -162,9 +162,9 @@ function h = plot_with_labels(varargin)
 end
 
 
-function h = plot_psd_cust(varargin)
+function h = plott_psd_cust(varargin)
 
-    h = plot_psd(varargin{:});
+    h = plott_psd(varargin{:});
     %xlim([0 500]);
     title('PSD');
     xlabel('Freq (Hz)');
@@ -174,9 +174,9 @@ end
 
 
 
-function h = plot_spect_cust(varargin)
+function h = plott_spect_cust(varargin)
 
-    h = plot_spect(varargin{:});
+    h = plott_spect(varargin{:});
     %ylim([0 500]);
     title('Spect');
     ylabel('Freq (Hz)');

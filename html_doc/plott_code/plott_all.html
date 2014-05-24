@@ -2,9 +2,9 @@
                 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-  <title>Description of plot_all</title>
-  <meta name="keywords" content="plot_all">
-  <meta name="description" content="[h, hl] = plot_all(varargin)">
+  <title>Description of plott_all</title>
+  <meta name="keywords" content="plott_all">
+  <meta name="description" content="[h, hl] = plott_all(varargin)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -12,28 +12,28 @@
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plot_all.m</div>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">plott_code</a> &gt; plott_all.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for plott_code&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
 
-<h1>plot_all
+<h1>plott_all
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>[h, hl] = plot_all(varargin)</strong></div>
+<div class="box"><strong>[h, hl] = plott_all(varargin)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function [h,hl] = plot_all(varargin) </strong></div>
+<div class="box"><strong>function [h,hl] = plott_all(varargin) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment">     [h, hl] = plot_all(varargin)
+<div class="fragment"><pre class="comment">     [h, hl] = plott_all(varargin)
      Plots the time series, psd, and spectrogram in a series of subplots.
      FORMS
-         [h, hl] = plot_all(X)
-         [h, hl] = plot_all(t,X)
-         [h, hl] = plot_all(X,options)
-         [h, hl] = plot_all(t,X,options)
+         [h, hl] = plott_all(X)
+         [h, hl] = plott_all(t,X)
+         [h, hl] = plott_all(X,options)
+         [h, hl] = plott_all(t,X,options)
      INTPUTS
          t - 1D vector of times.
          X - data (vector/matrix)
@@ -46,7 +46,7 @@
                        - only used if mode=2
          logplot - log scale plotting (boolean, Default=0)
          psd_on - Set to 1/0 to display/hide psd. This can also be
-               a cell array of name value option pairs to pass to plot_psd
+               a cell array of name value option pairs to pass to plott_psd
          spect_on - Set to 1/0 to display/hide spectrogram. This can also be
                a cell array of name value option pairs to pass to plot_spec 
      OUTPUTS
@@ -56,18 +56,18 @@
      Example 1 - Basic plot
      load pinknoise
      X = x(1:1000); t = 1:size(X,1);
-     figure; out2 = plot_all(X,'fs',1e3,'mode',1,'logplot',1);
+     figure; out2 = plott_all(X,'fs',1e3,'mode',1,'logplot',1);
      
      Example 2 - Plot of 2D matrix
      X = cumsum(randn([1000,5]));
      t = 1:size(X,1);
-     figure; out2 = plot_all(X,'fs',1e3,'mode',1,'logplot',1);
+     figure; out2 = plott_all(X,'fs',1e3,'mode',1,'logplot',1);
      
      Example 3 - Passing options to spect on
      load chirp
      Fs = 500;
      t = 1:length(y); t=t/Fs;
-     figure; plot_all(y,'fs',Fs,'mode',1,'spect_on',{'Nwind',300},'logplot',1);
+     figure; plott_all(y,'fs',Fs,'mode',1,'spect_on',{'Nwind',300},'logplot',1);
  
      CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</pre></div>
 
@@ -75,7 +75,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="plot_handles.html" class="code" title="function [h,hl] = plot_handles(fname,varargin)">plot_handles</a>	[h,hl] = plot_handles(fname,fsubplot,varargin)</li><li><a href="plot_psd.html" class="code" title="function hl = plot_psd(varargin)">plot_psd</a>	[hl] = plot_psd(X,fs,'mode',mode,'params',params,'logplot',logplot)</li><li><a href="plot_spect.html" class="code" title="function hl = plot_spect(varargin)">plot_spect</a>	[hl] = plot_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)</li><li><a href="subplotsq.html" class="code" title="function h=subplotsq(N,i)">subplotsq</a>	h=subplotsq(N,i)</li></ul>
+<li><a href="plott_handles.html" class="code" title="function [h,hl] = plott_handles(fname,varargin)">plott_handles</a>	[h,hl] = plott_handles(fname,fsubplot,varargin)</li><li><a href="plott_psd.html" class="code" title="function hl = plott_psd(varargin)">plott_psd</a>	[hl] = plott_psd(X,fs,'mode',mode,'params',params,'logplot',logplot)</li><li><a href="plott_spect.html" class="code" title="function hl = plott_spect(varargin)">plott_spect</a>	[hl] = plott_spect(X,fs,'mode',modenum,'params',chronuxparams,'logplot',logplot)</li><li><a href="subplotsq.html" class="code" title="function h=subplotsq(N,i)">subplotsq</a>	h=subplotsq(N,i)</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
@@ -83,19 +83,19 @@ This function is called by:
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function h = plot_with_labels(varargin)</a></li><li><a href="#_sub2" class="code">function h = plot_psd_cust(varargin)</a></li><li><a href="#_sub3" class="code">function h = plot_spect_cust(varargin)</a></li></ul>
+<li><a href="#_sub1" class="code">function h = plot_with_labels(varargin)</a></li><li><a href="#_sub2" class="code">function h = plott_psd_cust(varargin)</a></li><li><a href="#_sub3" class="code">function h = plott_spect_cust(varargin)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre>0001 
 0002 
-0003 <a name="_sub0" href="#_subfunctions" class="code">function [h,hl] = plot_all(varargin)</a>
-0004 <span class="comment">%     [h, hl] = plot_all(varargin)</span>
+0003 <a name="_sub0" href="#_subfunctions" class="code">function [h,hl] = plott_all(varargin)</a>
+0004 <span class="comment">%     [h, hl] = plott_all(varargin)</span>
 0005 <span class="comment">%     Plots the time series, psd, and spectrogram in a series of subplots.</span>
 0006 <span class="comment">%     FORMS</span>
-0007 <span class="comment">%         [h, hl] = plot_all(X)</span>
-0008 <span class="comment">%         [h, hl] = plot_all(t,X)</span>
-0009 <span class="comment">%         [h, hl] = plot_all(X,options)</span>
-0010 <span class="comment">%         [h, hl] = plot_all(t,X,options)</span>
+0007 <span class="comment">%         [h, hl] = plott_all(X)</span>
+0008 <span class="comment">%         [h, hl] = plott_all(t,X)</span>
+0009 <span class="comment">%         [h, hl] = plott_all(X,options)</span>
+0010 <span class="comment">%         [h, hl] = plott_all(t,X,options)</span>
 0011 <span class="comment">%     INTPUTS</span>
 0012 <span class="comment">%         t - 1D vector of times.</span>
 0013 <span class="comment">%         X - data (vector/matrix)</span>
@@ -108,7 +108,7 @@ This function is called by:
 0020 <span class="comment">%                       - only used if mode=2</span>
 0021 <span class="comment">%         logplot - log scale plotting (boolean, Default=0)</span>
 0022 <span class="comment">%         psd_on - Set to 1/0 to display/hide psd. This can also be</span>
-0023 <span class="comment">%               a cell array of name value option pairs to pass to plot_psd</span>
+0023 <span class="comment">%               a cell array of name value option pairs to pass to plott_psd</span>
 0024 <span class="comment">%         spect_on - Set to 1/0 to display/hide spectrogram. This can also be</span>
 0025 <span class="comment">%               a cell array of name value option pairs to pass to plot_spec</span>
 0026 <span class="comment">%     OUTPUTS</span>
@@ -118,18 +118,18 @@ This function is called by:
 0030 <span class="comment">%     Example 1 - Basic plot</span>
 0031 <span class="comment">%     load pinknoise</span>
 0032 <span class="comment">%     X = x(1:1000); t = 1:size(X,1);</span>
-0033 <span class="comment">%     figure; out2 = plot_all(X,'fs',1e3,'mode',1,'logplot',1);</span>
+0033 <span class="comment">%     figure; out2 = plott_all(X,'fs',1e3,'mode',1,'logplot',1);</span>
 0034 <span class="comment">%</span>
 0035 <span class="comment">%     Example 2 - Plot of 2D matrix</span>
 0036 <span class="comment">%     X = cumsum(randn([1000,5]));</span>
 0037 <span class="comment">%     t = 1:size(X,1);</span>
-0038 <span class="comment">%     figure; out2 = plot_all(X,'fs',1e3,'mode',1,'logplot',1);</span>
+0038 <span class="comment">%     figure; out2 = plott_all(X,'fs',1e3,'mode',1,'logplot',1);</span>
 0039 <span class="comment">%</span>
 0040 <span class="comment">%     Example 3 - Passing options to spect on</span>
 0041 <span class="comment">%     load chirp</span>
 0042 <span class="comment">%     Fs = 500;</span>
 0043 <span class="comment">%     t = 1:length(y); t=t/Fs;</span>
-0044 <span class="comment">%     figure; plot_all(y,'fs',Fs,'mode',1,'spect_on',{'Nwind',300},'logplot',1);</span>
+0044 <span class="comment">%     figure; plott_all(y,'fs',Fs,'mode',1,'spect_on',{'Nwind',300},'logplot',1);</span>
 0045 <span class="comment">%</span>
 0046 <span class="comment">%     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)</span>
 0047 <span class="comment">%</span>
@@ -167,15 +167,15 @@ This function is called by:
 0079     
 0080     <span class="keyword">if</span> spect_on
 0081         cp=cp+1;
-0082         fname{cp}=@(t,x) <a href="#_sub3" class="code" title="subfunction h = plot_spect_cust(varargin)">plot_spect_cust</a>(t,x,<span class="string">'fs'</span>,fs,<span class="string">'mode'</span>,mode,<span class="string">'logplot'</span>,logplot,<span class="string">'params'</span>,params,spect_args{:});
+0082         fname{cp}=@(t,x) <a href="#_sub3" class="code" title="subfunction h = plott_spect_cust(varargin)">plott_spect_cust</a>(t,x,<span class="string">'fs'</span>,fs,<span class="string">'mode'</span>,mode,<span class="string">'logplot'</span>,logplot,<span class="string">'params'</span>,params,spect_args{:});
 0083     <span class="keyword">end</span>
 0084     
 0085     <span class="keyword">if</span> psd_on
 0086         cp=cp+1;
-0087         fname{cp}=@(t,x) <a href="#_sub2" class="code" title="subfunction h = plot_psd_cust(varargin)">plot_psd_cust</a>(t,x,<span class="string">'fs'</span>,fs,<span class="string">'mode'</span>,psd_mode,<span class="string">'logplot'</span>,logplot,<span class="string">'params'</span>,params,psd_args{:});
+0087         fname{cp}=@(t,x) <a href="#_sub2" class="code" title="subfunction h = plott_psd_cust(varargin)">plott_psd_cust</a>(t,x,<span class="string">'fs'</span>,fs,<span class="string">'mode'</span>,psd_mode,<span class="string">'logplot'</span>,logplot,<span class="string">'params'</span>,params,psd_args{:});
 0088     <span class="keyword">end</span>
 0089     
-0090     [h,hl] = <a href="plot_handles.html" class="code" title="function [h,hl] = plot_handles(fname,varargin)">plot_handles</a>(fname,fsubplot,t,X);
+0090     [h,hl] = <a href="plott_handles.html" class="code" title="function [h,hl] = plott_handles(fname,varargin)">plott_handles</a>(fname,fsubplot,t,X);
 0091     
 0092 <span class="comment">%</span>
 0093 <span class="comment">%</span>
@@ -187,7 +187,7 @@ This function is called by:
 0099 <span class="comment">%         cp=cp+1;</span>
 0100 <span class="comment">%         h(cp)=subplotsq(Nplots,cp);</span>
 0101 <span class="comment">%</span>
-0102 <span class="comment">%         hl{cp} = plot_psd(X,1/dt,psd_mode);</span>
+0102 <span class="comment">%         hl{cp} = plott_psd(X,1/dt,psd_mode);</span>
 0103 <span class="comment">%</span>
 0104 <span class="comment">%     end</span>
 0105 <span class="comment">%</span>
@@ -250,9 +250,9 @@ This function is called by:
 0162 <span class="keyword">end</span>
 0163 
 0164 
-0165 <a name="_sub2" href="#_subfunctions" class="code">function h = plot_psd_cust(varargin)</a>
+0165 <a name="_sub2" href="#_subfunctions" class="code">function h = plott_psd_cust(varargin)</a>
 0166 
-0167     h = <a href="plot_psd.html" class="code" title="function hl = plot_psd(varargin)">plot_psd</a>(varargin{:});
+0167     h = <a href="plott_psd.html" class="code" title="function hl = plott_psd(varargin)">plott_psd</a>(varargin{:});
 0168     <span class="comment">%xlim([0 500]);</span>
 0169     title(<span class="string">'PSD'</span>);
 0170     xlabel(<span class="string">'Freq (Hz)'</span>);
@@ -262,9 +262,9 @@ This function is called by:
 0174 
 0175 
 0176 
-0177 <a name="_sub3" href="#_subfunctions" class="code">function h = plot_spect_cust(varargin)</a>
+0177 <a name="_sub3" href="#_subfunctions" class="code">function h = plott_spect_cust(varargin)</a>
 0178 
-0179     h = <a href="plot_spect.html" class="code" title="function hl = plot_spect(varargin)">plot_spect</a>(varargin{:});
+0179     h = <a href="plott_spect.html" class="code" title="function hl = plott_spect(varargin)">plott_spect</a>(varargin{:});
 0180     <span class="comment">%ylim([0 500]);</span>
 0181     title(<span class="string">'Spect'</span>);
 0182     ylabel(<span class="string">'Freq (Hz)'</span>);

@@ -1,15 +1,15 @@
 
-function [returns] = plot_ani(varargin)
+function [returns] = plott_ani(varargin)
 %     [returns] = plotani(X,fs,options)
 %     Takes in a 2D or 3D matrix and generates an animated plot that cycles through
 %     the matrix columns when the user presses "enter." If multiple function
 %     handles are specified in a cell array, then each function handle
 %     will get its own subplot.
 %     FORMS
-%         [returns] = plot_ani(X)
-%         [returns] = plot_ani(t,X)
-%         [returns] = plot_ani(X,options)
-%         [returns] = plot_ani(t,X,options)
+%         [returns] = plott_ani(X)
+%         [returns] = plott_ani(t,X)
+%         [returns] = plott_ani(X,options)
+%         [returns] = plott_ani(t,X,options)
 %     INTPUTS
 %         t - 1D vector of times. This is just used to calculate fs
 %         X - vector or matrix of data, where rows are times and columns are variables
@@ -30,12 +30,12 @@ function [returns] = plot_ani(varargin)
 %     Example 1 - Plot a 3D matrix
 %     X = abs(randn([100,5,2])); fname = {@plot, @loglog};
 %     t = 1:100; t = t/100;
-%     out = plot_ani(t,X,'fs',1e-3,'randcol',0,'fname',fname);
+%     out = plott_ani(t,X,'fs',1e-3,'randcol',0,'fname',fname);
 %     
 %     Example 2 - Plot a 2D matrix that is converted to 3D using splitup
 %     t=(1:950)'; X = [sin(2*pi/21*t) 1.1*sin(2*pi/21*t)]+1.1;
-%     fname = {@plot, @loglog, @(x) plot_psd(x,'fs',1)};
-%     out = plot_ani(X,'fname',fname,'splitup',100,'fs',1);
+%     fname = {@plot, @loglog, @(x) plott_psd(x,'fs',1)};
+%     out = plott_ani(X,'fname',fname,'splitup',100,'fs',1);
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 %     
@@ -93,10 +93,10 @@ function [returns] = plot_ani(varargin)
         end
         
         if length(reg) == 1
-            plot_handles(fname,fsubplot,Xcurr,plotargs{:});
+            plott_handles(fname,fsubplot,Xcurr,plotargs{:});
         elseif length(reg) == 2
             t = 1:size(Xcurr,1); t = t / fs;
-            plot_handles(fname,fsubplot,t,Xcurr,plotargs{:});
+            plott_handles(fname,fsubplot,t,Xcurr,plotargs{:});
         end
         
         prompt = 'Type a comment or hit enter to continue q to quit: ';

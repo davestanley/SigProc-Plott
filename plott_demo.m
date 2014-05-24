@@ -17,19 +17,19 @@ chirp_coords = repmat(chirp_midpoints,Ndata,1) + repmat([1:Ndata]' - floor(Ndata
 X = y(chirp_coords);
 chirpnames = arrayfun(@(x) ['Chirp #' num2str(x)],1:Nchirps,'UniformOutput',0);
 
-%% plot_matrix3D: Plot the stacked raw data
-figure; hl= plot_matrix3D(X,'fs',Fs,'do_mean',1,'showErrorbars',1,'do_shift',2,'active_dim',3); title('Raw data');
+%% plott_matrix3D: Plot the stacked raw data
+figure; hl= plott_matrix3D(X,'fs',Fs,'do_mean',1,'showErrorbars',1,'do_shift',2,'active_dim',3); title('Raw data');
 legend(hl,chirpnames); xlabel('Time (s)'); ylabel('Signal');
 
-%% plot_psd: Plot all powerspectra
-figure; hl= plot_psd(X,'fs',Fs); ylabel('Power');
+%% plott_psd: Plot all powerspectra
+figure; hl= plott_psd(X,'fs',Fs); ylabel('Power');
 legend(hl,chirpnames);
 
-%% plot_ani: Animated plot time series paired with spectrogram for each chirp
-figl; plot_ani(X(:,:),'fs',Fs,'fname',{@plot_fs,@plot_spect});
+%% plott_ani: Animated plot time series paired with spectrogram for each chirp
+figl; plott_ani(X(:,:),'fs',Fs,'fname',{@plott_fs,@plott_spect});
 
-%% plot_all: Mean spectrogram of all data
-figl; [h, hl] = plot_all(X,'fs',Fs,'psd_on',0);
+%% plott_all: Mean spectrogram of all data
+figl; [h, hl] = plott_all(X,'fs',Fs,'psd_on',0);
 legend(hl{1},chirpnames);
 ylabel('Signal');
 
