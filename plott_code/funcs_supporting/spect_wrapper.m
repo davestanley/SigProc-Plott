@@ -1,14 +1,13 @@
 
 
 function [S, F, T] = spect_wrapper(varargin)
-%     [P, f] = spect_wrapper(X,fs,'mode',modenum,'params',chronuxparams)
+%     [P, F, T] = spect_wrapper(X,fs,'mode',modenum,'params',chronuxparams)
 %     Calculates spectrogram using one of several
 %     different methods, thus serving as a wrapper. 
 %     FORMS
-%         [P, f] = spect_wrapper(X)
-%         [P, f] = spect_wrapper(X,options)
+%         [P, F, T] = spect_wrapper(X)
+%         [P, F, T] = spect_wrapper(X,options)
 %     INPUTS
-%         t - times (vector)
 %         X - data (vector/matrix)
 %         options - specifies options in the form of name and value pairs
 %             (i.e. 'fs',1024)
@@ -27,7 +26,7 @@ function [S, F, T] = spect_wrapper(varargin)
 %         params - an optional structure that is passed as params to 
 %                 the chronux mtspecgramc
 %     OUTPUTS
-%         [P, f] - power and frequency
+%         [P, F, T] - power and frequency and time
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 % 

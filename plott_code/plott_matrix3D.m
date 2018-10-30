@@ -1,21 +1,21 @@
 
 
 
-function [hl] = plott_matrix3D(varargin)
-%     [hl] = plott_matrix3D(t,X,'options')
+function [hl1,hl2] = plott_matrix3D(varargin)
+%     [hl,hl2] = plott_matrix3D(t,X,'options')
 %     Flexible plotting for 3D matrices
 %     Uses the boundedline function (by Kelly Kearney, available from Mathworks)
 %     FORMS
-%         [hl] = plott_matrix3D(X)
-%         [hl] = plott_matrix3D(t,X)
-%         [hl] = plott_matrix3D(X,'options')
-%         [hl] = plott_matrix3D(t,X,'options')
+%         [hl1,hl2] = plott_matrix3D(X)
+%         [hl1,hl2] = plott_matrix3D(t,X)
+%         [hl1,hl2] = plott_matrix3D(X,'options')
+%         [hl1,hl2] = plott_matrix3D(t,X,'options')
 %     INTPUTS
 %         X - vector or matrix of data. Can be 2D or 3D. If 3D, then one of
 %         the dimensions will be used for averaging. 
 %         options - specifies options in the form of name and value pairs
 %             (i.e. 'fs',1024)
-%     OPTIONS
+%     OPTIONS (name value pairs)
 %         'randcol', boolean -  randomize columns for plotting. BOOLEAN = 1 for true
 %         'fname', fname - function handle or cell array of multiple function handles
 %         'fs' - sampling freq of data
@@ -29,9 +29,13 @@ function [hl] = plott_matrix3D(varargin)
 %         'do_zscore' - applies z-score to 1st dimension of data
 %         'do_filter' - A vector of length size(X,active_dim). Performs logical indexing on active_dim
 %             Useful for removing bad data.
-%         'LineSpec' - takes in a cell array of linespec arguments, passes these to the plotting command
+%         'Color' - Color arguments of the form accepted by plot LineSpec (i.e. 'b-','kx',etc.)
+%         'LineSpec' - takes in a cell array of linespec arguments, passes these to the plot command
+%         'LineSpec2' - takes in a cell array of linespec arguments, passes
+%             these to the boundedline command.
 %     OUTPUTS
-%         [HL] - plot handle
+%         [hl1] - plot handle of line
+%         [hl2] - plot handle of bounded line
 % 
 %     EXAMPLES
 %         t = linspace(0, 2*pi, 50);
@@ -67,7 +71,7 @@ function [hl] = plott_matrix3D(varargin)
 %         h=plott_matrix3D(t, X,'do_mean',1,'do_zscore',0,'showErrorbars',1,'LineSpec',{'-'},'do_filter',myfilter)
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
-% 
+%         March 27 2014 - Updated to allow t to be a vector (Dave)
 
 
 
@@ -75,14 +79,16 @@ function [hl] = plott_matrix3D(varargin)
     [reg, args]=parseparams(varargin);  % Regs should contain t and X    
     p = inputParser;
     addOptional(p,'fs',1,@isnumeric);
-    addOptional(p,'showErrorbars',0,@isnumeric);
+    addOptional(p,'showErrorbars',1,@isnumeric);
     addOptional(p,'active_dim',2,@isnumeric);
     addOptional(p,'do_mean',1,@isnumeric); % Means along active dim
     addOptional(p,'do_shift',[],@isnumeric);    % Shifts along active dim
     addOptional(p,'do_filter',[],@islogical);    % Filters along active dim
     addOptional(p,'randcol',0,@isnumeric);    % Filters along active dim
     addOptional(p,'do_zscore',0,@isnumeric);
+    addOptional(p,'Color',{},@iscell);
     addOptional(p,'LineSpec',{},@iscell);
+    addOptional(p,'LineSpec2',{},@iscell);
     addOptional(p,'fname',@plot);
     
     parse(p,args{:});
@@ -104,20 +110,28 @@ function [hl] = plott_matrix3D(varargin)
         X=zscore(X);
     end
     
+    if size(X,2) <= 1   % If only one dimension, there is nothing to mean!
+        showErrorbars = 0;
+        do_mean = 0 ;
+    end
+    
     if showErrorbars; do_mean=1; end    % If showing error bars, need to take mean
     
     if do_mean
-        Xste=std(X,[],2) / sqrt(size(X,2));
+        Xste=std(X,[],2) / sqrt(size(X,2)); % Standard error
+        %Xste=std(X,[],2);                   % Standard deviation
         X=mean(X,2);
         %X=median(X,2);
+        t = mean(t,2);      % Some extra operations, but it's worth it.
     end
     
     if ~isempty(do_shift)
-        if do_mean; X = permute(X,[1,3,2]);end  % If already meaned dim2, bump up next dimension
+        permuted = 0;
+        if size(X,2) <= 1; X = permute(X,[1,3,2]); permuted = 1; end  % If already meaned dim2, bump up next dimension
         shiftmat = (0:size(X,2)-1)*do_shift;
         shiftmat = repmat(shiftmat,[size(X,1),1,size(X,3)]);
         X=X+shiftmat;
-        if do_mean; X = permute(X,[1,3,2]);end  % Return to defualt
+        if permuted; X = permute(X,[1,3,2]);end  % Return to defualt
     end
 
     N = size(X,1);
@@ -127,18 +141,41 @@ function [hl] = plott_matrix3D(varargin)
     else cols = 1:Nepochs; end
     
     for i = 1:length(cols)
-        hl{i} = fname(t,squeeze(X(:,cols(i),:)),LineSpec{:}); hold on; 
+        hl1{i} = fname(t(:,cols(i)),squeeze(X(:,cols(i),:)),Color{:},LineSpec{:}); hold on; 
+        
+        hl2 = [];
         if showErrorbars
-            %hold on; hl{i} = errorbar(t,squeeze(X),squeeze(Xste),'.',LineSpec{:});
-            hold on; hl{i} = boundedline(t,squeeze(X),permute(squeeze(Xste),[1 3 2]),'alpha',LineSpec{:});
+            
+            % Transfer cmap over to LineSpec2 for boundedline if not already present
+            if isempty(find(strcmp(LineSpec2,'cmap')))
+                lsc_ind = find(strcmp(LineSpec,'Color'));
+                if ~isempty(lsc_ind)
+                    if ~ischar(LineSpec{lsc_ind+1})                 % Linespec is of form 'Color',[0 1 0]
+                        LineSpec2{end+1}='cmap'; % The color specification is a row vector
+                        LineSpec2{end+2}=LineSpec{lsc_ind+1};
+                    else
+                        Color=LineSpec(lsc_ind+1);         % Linespec is of form 'Color','b-'
+                    end
+                end
+            end
+
+            
+            
+            hold on; hl2{i} = boundedline(t,squeeze(X),permute(squeeze(Xste),[1 3 2]),Color{:},'alpha',LineSpec2{:});
+            
             %hold on; hl{i} = shadedErrorBar(repmat(t(:),1,size(squeeze(X),2)),squeeze(X),squeeze(Xste));
             %outlinebounds (hl{i});
         end
     end
     hold off;
     
-    if length(hl) == 1
-        hl = cell2mat(hl);
+    if length(hl1) == 1
+        %hl1 = cell2mat(hl1);
+        hl1 = hl1{1};
+    end
+    if length(hl2) == 1
+        %hl2 = cell2mat(hl2);
+        hl2 = hl2{1};
     end
     
 %     if do_zscore; ylim([-1.5 2])

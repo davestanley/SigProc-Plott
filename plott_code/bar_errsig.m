@@ -12,7 +12,7 @@ function [hbar herr] = bar_errsig(varargin)
 %     INTPUTS
 %         h - optional - vector or matrix of hypotheses size(h,1) must
 %           equal size(X,1); 
-%         Xstd - vector for error bars
+%         Xstd - vector for error bars, must have same dimensions as X.
 %         X - vector or matrix of data
 %         bar_vars - variables as passed to conventional bar plot command
 %         h_options - additional name value pairs listed below are
@@ -59,6 +59,9 @@ function [hbar herr] = bar_errsig(varargin)
     
     h=varargin{1};
     Xstd = varargin{2};
+    if isvector(Xstd)
+        Xstd = Xstd(:);
+    end
     [hbar herr ] =barwitherr(varargin{2:end});
     
     Xmu = [];
@@ -66,6 +69,11 @@ function [hbar herr] = bar_errsig(varargin)
         Xmu = [Xmu; get(hbar(i),'YData')];
     end
     Xmu = Xmu';
+    
+    % Make Xstd have the same signs as Xmu - this will position error bars
+    % on the appropraite sides
+    Xstd = abs(Xstd); 
+    Xstd = sign(Xmu).*Xstd;
     
     if isempty(h); return; end  % If hypothesis vector is empty, return
     
@@ -90,16 +98,26 @@ function [hbar herr] = bar_errsig(varargin)
 %     end
     
     % 1 d significance vector
+    starlocs = [];
     if isvector(h)
         for i = 1:length(h)
             % old code - should really specify a 2D h vector
             if ~isvector(Xmu)
-                if h(i)
-                    text(mean(xlocs2D(i,:)),star_shift_factor*(max(Xmu(i,:)+Xstd(i,:))),mysymbol,'FontSize',myfontsize,'HorizontalAlignment','center');
+                if h(i) > 0
+                    starloc_curr = star_shift_factor*(max(Xmu(i,:)+Xstd(i,:)));
+                    text(mean(xlocs2D(i,:)),starloc_curr,repmat(mysymbol,1,h(i)),'FontSize',myfontsize,'HorizontalAlignment','center');
+                    starlocs = cat(3,starlocs,starloc_curr);
                 end
             else
-                if h(i)
-                    text(xlocs(i),star_shift_factor*(Xmu(i)+Xstd(i)),mysymbol,'FontSize',myfontsize,'HorizontalAlignment','center');
+                if h(i) > 0
+                    starloc_curr = star_shift_factor*(Xmu(i)+Xstd(i));
+%                     text(xlocs(i),starloc_curr,repmat(mysymbol,1,h(i)),'FontSize',myfontsize,'HorizontalAlignment','center','VerticalAlignment','middle');
+                    if starloc_curr < 0
+                        text(xlocs(i),starloc_curr,repmat(mysymbol,1,h(i)),'FontSize',myfontsize,'HorizontalAlignment','center','VerticalAlignment','top');
+                    else
+                        text(xlocs(i),starloc_curr,repmat(mysymbol,1,h(i)),'FontSize',myfontsize,'HorizontalAlignment','center','VerticalAlignment','bottom');
+                    end
+                    starlocs = cat(3,starlocs,starloc_curr);
                 end
 
             end
@@ -110,13 +128,27 @@ function [hbar herr] = bar_errsig(varargin)
         if sz1 == sz2
             for i = 1:sz1(1)
                 for j = 1:sz1(2)
-                    if h(i,j)
-                        text(xlocs2D(i,j),star_shift_factor*max(Xmu(i,:)+Xstd(i,:)),mysymbol,'FontSize',myfontsize,'HorizontalAlignment','center');
+                    if h(i,j) > 0
+                        starloc_curr = star_shift_factor*max(Xmu(i,:)+Xstd(i,:));
+                        text(xlocs2D(i,j),starloc_curr,repmat(mysymbol,1,h(i,j)),'FontSize',myfontsize,'HorizontalAlignment','center');
+                        starlocs = cat(3,starlocs,starloc_curr);
                     end
                 end
             end
         end
     end
+    
+    
+    % Scale the y axes so that the significance stars lie inside the axes
+    % bounds
+    if isempty(starlocs); starlocs=0; end
+    ylim_curr = ylim;
+    ylim_new = zeros(1,2);
+    ylim_new(1) = min(min(starlocs(:))*1.1,ylim_curr(1));
+    ylim_new(2) = max(max(starlocs(:))*1.1,ylim_curr(2));
+    
+    ylim(ylim_new);
+    
     
     
 end

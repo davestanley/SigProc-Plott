@@ -20,6 +20,7 @@ function [returns] = plott_ani_pairs(varargin)
 %         'splitup',N - automatically converts large datafiles into smaller chuncks of size N that are
 %             more agreeable for plotting. Zero for no splitting (default).
 %         'plotargs' - cell array of option pairs to be passed to all plotting functions
+%         'fsubplot' - subplot function to use. Default is @subplotsq
 % 
 %     OUTPUTS
 %         returns - set of user keystrokes

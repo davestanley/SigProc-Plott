@@ -19,12 +19,19 @@ function hl = plott_spect(varargin)
 %         fs - sampling rate (Default=1; when t is supplied fs is overridden by spacing of t )
 %         mode - 1-Matlab spectrogram function
 %                2-Chronux (default, must have Chronux in path)
+%                3-Chronux (old implementation, using spect_wrapper function)
 %         params - paramater structure to be fed into Chronux commands
 %                       - note - in all cases, fs will override params.Fs.
 %                       - only used if mode=2
 %         Nwind - Number of datapoints to use in spectrogram window
 %         fract_overlap - fraction of overlapt to use in spectrogram window
 %         logplot - log scale plotting (boolean, Default=0)
+%         axis_lims - optional 2 element matrix that specifies range of frequency axis
+%                 (i.e. [0 200] = 0 to 200 Hz). Default is [].
+%         clims - optional 2 element matrix that specifies range of colors
+%                 (i.e. [0 200] = 0 to 200 Hz). Default is [].
+%         zscoreplot - takes zscore along rows of matrix, effectively
+%                     normalizing the power in all frequency bands (boolean, Default=0)
 %     OUTPUTS
 %         [HL] - plot handle
 % 
@@ -52,7 +59,7 @@ function hl = plott_spect(varargin)
 %     load chirp
 %     t = 1:length(y); t=t/Fs;
 %     subplotrows(2,1); out1 = plot(t,y);
-%     subplotrows(2,2); out2 = plott_spect(y,'fs',Fs,'mode',1,'Nwind',300,'logplot',1);
+%     subplotrows(2,2); out2 = plott_spect(y,'fs',Fs,'mode',2,'Nwind',300,'logplot',1);
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 % 
@@ -63,9 +70,12 @@ function hl = plott_spect(varargin)
     addOptional(p,'fs',1,@isnumeric);
     addOptional(p,'mode',[],@isnumeric);     % Default mode is chronux
     addOptional(p,'logplot',[],@isnumeric);
+    addOptional(p,'zscoreplot',[],@isnumeric);
     addOptional(p,'Nwind',[],@isnumeric);               %  Lenght of window
     addOptional(p,'fract_overlap',[],@isnumeric);       % Fraction of overlapping amongst sliding windows
     addOptional(p,'params',[]); 
+    addOptional(p,'axis_lims',[],@isnumeric);
+    addOptional(p,'clims',[],@isnumeric);
     parse(p,args{:});
     vars_pull(p.Results);
     psd_mode = p.Results.mode;
@@ -73,13 +83,37 @@ function hl = plott_spect(varargin)
     %Set defaults
     if isempty(fs); fs = 1; end
     if isempty(logplot); logplot = 0; end
+    if isempty(logplot); zscoreplot = 0; end
+    if isempty(psd_mode); psd_mode = 2; end
     
     %Setup X
     [t,X,fs] = sort_out_timeseries(reg,fs); % Assigns values to t, X, and fs. If available, the fs from t always overrides fs.
+    t = mean(t,2); % Convert t back to vector - we don't need it to be a matrix in this case
+    
+    if psd_mode == 1
+        [S, F, T] = spect_wrapper(X,fs,'mode',1,'params',params,'trialave',1,'Nwind',Nwind,'fract_overlap',fract_overlap);
+    elseif psd_mode == 2
+        if isempty(params);
+            params.tapers = [3,5];
+            params.Fs = fs;
+        end
+        fname = @(X) mtspectrumc(X,params);
+        [S, F, T] = func2spectrogram(X,'fname',fname,'fs',fs,'trialave',1,'Nwind',Nwind,'fract_overlap',fract_overlap);     % IUse the more general function, based on function handles
+    elseif psd_mode == 3
+        [S, F, T] = spect_wrapper(X,fs,'mode',2,'params',params,'trialave',1,'Nwind',Nwind,'fract_overlap',fract_overlap);   % Old way of doing things.
+        
+    end
+        
     
     
-    [S, F, T] = spect_wrapper(X,fs,'mode',psd_mode,'params',params,'trialave',1,'Nwind',Nwind,'fract_overlap',fract_overlap);
+    
+    
+    
     T = T - mean(T) + mean(t) + 1/fs/2; % Shifts the spectrogram to be centered on wherever the original input t was centred.
+    
+    if zscoreplot
+        S = zscore(S,[],2);
+    end
 
     if ~logplot
         hl = imagesc([min(T),max(T)],[min(F),max(F)],(S));set(gca,'YDir','normal');
@@ -87,10 +121,13 @@ function hl = plott_spect(varargin)
         hl = imagesc([min(T),max(T)],[min(F),max(F)],10*log10(S));set(gca,'YDir','normal');
     end
 
+    if ~isempty(clims); caxis(clims);end
     xlabel('Time');
     ylabel('Freq');
     xlim([min(t) max(t)]);
-    %ylim([0 100]);
+    if ~isempty(axis_lims)
+        ylim(axis_lims);
+    end
 
 end
 

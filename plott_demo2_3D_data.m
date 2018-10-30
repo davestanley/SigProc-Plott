@@ -26,7 +26,7 @@ X(:,[3 5],:) = X(:,[3 5],:) + Xnoise;
 
 
 %% plott_matrix3D: Plot mean data
-figure; hl = plott_matrix3D(X(:,:,:),'fs',Fs,'do_mean',1,'do_shift',2,'active_dim',2); title('Averages');
+figure; hl = plott_matrix3D(X(:,:,:),'fs',Fs,'do_mean',1,'do_shift',2); title('Averages');
 legend(hl,arrayfun(@(x) ['Chirp #' num2str(x)],1:Nsignals,'UniformOutput',0))
 xlabel('time (s)');
 

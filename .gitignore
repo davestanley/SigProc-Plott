@@ -7,7 +7,7 @@ octave-core
 core.*
 
 # large mat files which should probably move to crc-nak.
-*.mat
+#*.mat
 
 # Mac files
 *.DS_Store

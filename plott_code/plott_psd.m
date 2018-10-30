@@ -22,6 +22,8 @@ function hl = plott_psd(varargin)
 %                       - note - in all cases, fs will override params.Fs.
 %                       - only used if mode=2
 %         logplot - log scale plotting (boolean, Default=0)
+%         axis_lims - optional 2 element matrix that specifies range of frequency axis
+%                 (i.e. [0 200] = 0 to 200 Hz). Default is [].
 %     OUTPUTS
 %         [HL] - plot handle
 % 
@@ -56,6 +58,7 @@ function hl = plott_psd(varargin)
     addOptional(p,'logplot',[],@isnumeric);
     addOptional(p,'params',[]);
     addOptional(p,'plotargs',{});
+    addOptional(p,'axis_lims',[]);
     parse(p,args{:});
     vars_pull(p.Results);
     psd_mode = p.Results.mode;
@@ -63,6 +66,7 @@ function hl = plott_psd(varargin)
     % Set Defaults
     if isempty(fs); fs = 1; end
     if isempty(logplot); logplot = 0; end
+    if ~isfield(params,'trialave'); params.trialave = 1; end
     
     
     % Setup X
@@ -75,9 +79,13 @@ function hl = plott_psd(varargin)
         hl = plot(f,P,plotargs{:});
     else
         hl = loglog(f,P,plotargs{:});
+        set(gca,'XScale','log')
+        set(gca,'YScale','log')
     end
     xlabel('Freq');
-%     xlim([0 100]);
+    if ~isempty(axis_lims)
+        xlim(axis_lims);
+    end
     
 end
 

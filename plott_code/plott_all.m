@@ -23,6 +23,10 @@ function [h,hl] = plott_all(varargin)
 %               a cell array of name value option pairs to pass to plott_psd
 %         spect_on - Set to 1/0 to display/hide spectrogram. This can also be
 %               a cell array of name value option pairs to pass to plot_spec 
+%         Nwind - Number of datapoints to use in spectrogram window
+%         axis_lims - optional 2 element matrix that specifies range of frequency axis
+%                 (i.e. [0 200] = 0 to 200 Hz). Default is [].
+%         fsubplot - subplot function to use. Default is @subplotsq
 %     OUTPUTS
 %         h = collection of subplot object handles
 %         hl = line handles from each subplot
@@ -58,6 +62,8 @@ function [h,hl] = plott_all(varargin)
     addOptional(p,'spect_on',1);
     addOptional(p,'fsubplot',@subplotsq); 
     addOptional(p,'params',[]); 
+    addOptional(p,'axis_lims',[],@isnumeric);
+    addOptional(p,'Nwind',[],@isnumeric);
     parse(p,args{:});
     vars_pull(p.Results)
     psd_mode = p.Results.mode;
@@ -79,12 +85,12 @@ function [h,hl] = plott_all(varargin)
     
     if spect_on
         cp=cp+1;
-        fname{cp}=@(t,x) plott_spect_cust(t,x,'fs',fs,'mode',mode,'logplot',logplot,'params',params,spect_args{:});
+        fname{cp}=@(t,x) plott_spect_cust(t,x,'fs',fs,'mode',mode,'logplot',logplot,'axis_lims',axis_lims,'Nwind',Nwind,'params',params,spect_args{:});
     end
     
     if psd_on
         cp=cp+1;
-        fname{cp}=@(t,x) plott_psd_cust(t,x,'fs',fs,'mode',psd_mode,'logplot',logplot,'params',params,psd_args{:});
+        fname{cp}=@(t,x) plott_psd_cust(t,x,'fs',fs,'mode',psd_mode,'logplot',logplot,'axis_lims',axis_lims,'params',params,psd_args{:});
     end
     
     [h,hl] = plott_handles(fname,fsubplot,t,X);
@@ -154,8 +160,11 @@ function h = plot_with_labels(varargin)
     opt.shift = 0.0;
     h = plot_matrix2(t,zscore(x),opt);
     
+    if isvector(t); t=t(:); end
+    tmean = mean(t,2);
+    
     xlabel('time');
-    xlim([min(t) max(t)]);
+    xlim([min(tmean) max(tmean)]);
     title('Data');
     xlabel('time (s)');
 

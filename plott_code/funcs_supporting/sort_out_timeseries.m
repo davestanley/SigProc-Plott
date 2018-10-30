@@ -12,4 +12,14 @@ function [t,X,fs] = sort_out_timeseries(reg,fs)
     else
         fprintf('too many numerical inputs \n');
     end
+    
+    % Ensure that t is a column matrix
+    if isvector(t);
+        t=t(:); 
+        
+        % If X is a matrix, expand t to also be a matrix of the same dim
+        if ~isvector(X);
+            t = repmat(t,1,size(X,2));
+        end
+    end
 end

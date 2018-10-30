@@ -1,3 +1,4 @@
+echo Warning: This code was only tested in CentOS Linux
 
 for f in  `ls plot_*`
 do

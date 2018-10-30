@@ -34,8 +34,8 @@ function [returns] = plott_ani(varargin)
 %     
 %     Example 2 - Plot a 2D matrix that is converted to 3D using splitup
 %     t=(1:950)'; X = [sin(2*pi/21*t) 1.1*sin(2*pi/21*t)]+1.1;
-%     fname = {@plot, @loglog, @(x) plott_psd(x,'fs',1)};
-%     out = plott_ani(X,'fname',fname,'splitup',100,'fs',1);
+%     fname = {@plott_fs, @loglog, @(x) plott_psd(x,'fs',1)};
+%     out = plott_ani(X,'fname',fname,'splitup',100);
 % 
 %     CONTACT: David Stanley, Boston University (stanleyd@bu.edu, https://github.com/davestanley)
 %     
