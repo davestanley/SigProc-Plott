@@ -26,7 +26,7 @@ function hl = plott_spect(varargin)
 %         Nwind - Number of datapoints to use in spectrogram window
 %         fract_overlap - fraction of overlapt to use in spectrogram window
 %         logplot - log scale plotting (boolean, Default=0)
-%         axis_lims - optional 2 element matrix that specifies range of frequency axis
+%         axis_lims - optional 2 element matrix that specifies range of frequency axis (yaxis)
 %                 (i.e. [0 200] = 0 to 200 Hz). Default is [].
 %         clims - optional 2 element matrix that specifies range of colors
 %                 (i.e. [0 200] = 0 to 200 Hz). Default is [].
