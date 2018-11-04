@@ -1,5 +1,5 @@
 
-function figl(varargin)
+function figfull(varargin)
 % figl (no arguments)
 % Opens a large figure
 
@@ -7,6 +7,6 @@ function figl(varargin)
 %figure('Position', [ 81           1        1355         805],'Color','w'); % Full screen
 
 
-figure('units','normalized','outerposition',[0.00,0.0,0.8,0.6],'Color','w',varargin{:});
+figure('units','normalized','outerposition',[0 0 1 1],'Color','w',varargin{:});
 
 end
