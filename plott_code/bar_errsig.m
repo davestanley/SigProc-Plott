@@ -79,14 +79,16 @@ function [hbar herr] = bar_errsig(varargin)
     
     if isvector(h); h = h(:); end
     
-    xdata=get(get(hbar(end),'children'),'xdata');
+    xdata=get(hbar(i),'XData');
     xlocs = mean(xdata,1);
 %     xlocs2D = unique(xdata,'rows');   % This method for calculating xlocs2D is wrong
 %     xlocs2D = xlocs2D';
     
     xlocs2D = [];
     for i = 1:length(hbar)
-        xdata=get(get(hbar(i),'children'),'xdata');
+        %xdata=get(get(hbar(i),'children'),'xdata');
+        %xlocs2D = [xlocs2D; mean(xdata,1)];
+        xdata=get(hbar(i),'XData');
         xlocs2D = [xlocs2D; mean(xdata,1)];
     end
     xlocs2D=xlocs2D';
